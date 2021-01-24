@@ -15,22 +15,23 @@ class Player {
 
     movePlayer(direction) {
         if (!this.hasPlayerReachBorder(direction)) {
-            direction === 'right' ? this.playerPos.x += 5 : this.playerPos.x -=5
-        } 
+            direction === 'right' ? this.playerPos.x += 5 : this.playerPos.x -= 5
+        }
+        console.log(`new position: ${this.playerPos.x}`)
     }
 
-    drawPlayer() {    
+    drawPlayer() {
         this.ctx.drawImage(this.imageInstance, this.playerPos.x, this.playerPos.y, this.playerSize.w, this.playerSize.h)
     }
 
     receiveDamage(attackType) {
-        attackType === 'kick' ? this.health -= 10: this.health -= 5                
+        attackType === 'kick' ? this.health -= 10 : this.health -= 5
     }
 
     hasPlayerReachBorder(direction) {
         if (direction === 'right') {
             return (this.playerPos.x + 5 + this.playerSize.w > this.canvasSize.w)
-        } else { return this.playerPos.x -5 <= 0 }
+        } else { return this.playerPos.x - 5 <= 0 }
     }
 
     getPlayerType() {
@@ -40,7 +41,7 @@ class Player {
     setPlayerType(value) {
         this.playerType = value
     }
-    
+
     getPosition() {
         return this.playerPos
     }

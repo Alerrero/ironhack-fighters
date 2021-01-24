@@ -16,21 +16,22 @@ const ironhackFighters = {
         kick: 'd'
     },
     intervalId: undefined,
+    keydown: false,
 
     init(canvasID) {
         this.canvasDom = document.getElementById(`${canvasID}`)
         this.ctx = this.canvasDom.getContext('2d')
         this.setDimensions()
-        this.players.push(new Player (this.ctx, this.canvasSize, 'player1','popino'))
-        this.players.push(new Player (this.ctx, this.canvasSize, 'player2','popino'))
+        this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'popino'))
+        this.players.push(new Player(this.ctx, this.canvasSize, 'player2', 'popino'))
         this.players[0].setPlayerInitialPos()
         this.players[1].setPlayerInitialPos()
-        this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, this.players[0].getPlayerHealth(),this.players[0].getPlayerType()))
+        this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, this.players[0].getPlayerHealth(), this.players[0].getPlayerType()))
         this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, 300, 'player2'))
         this.render()
-    
-       // this.lifeBars[0].fillHealthBar()
-        
+
+        // this.lifeBars[0].fillHealthBar()
+
     },
 
     render() {
@@ -49,15 +50,11 @@ const ironhackFighters = {
             this.setEventListener()
             if (this.detectCollision()) {
                 console.log('colision')
-                if (this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest'){
+                if (this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest') {
                     this.players[0].movePlayer('left')
                     this.players[1].movePlayer('right')
-            
                 }
-            } 
-
-
-           
+            }
         }, 1000 / 60)
 
     },
@@ -68,23 +65,46 @@ const ironhackFighters = {
     },
 
     setEventListener() {
-        document.addEventListener('keydown', (event) => { 
-            if (event.key === this.keys.moveLeft) {
-                
-                this.players[0].movePlayer('left')
+        // document.addEventListener('keydown', (event) => {
+        //     if (event.key === this.keys.moveLeft) {
+        //         this.players[0].movePlayer('left')
+        //         console.log('keydown left detected')
 
-                
+        //     }
+        //     if (event.key === this.keys.moveRight) {
+        //         this.keydown = true
+        //         this.players[0].movePlayer('right')
+        //         console.log(`keydown right detected`)
+        //     }
+        //     if (event.key === this.keys.punch) {
+        //         console.log('punch')
+        //     }
+        //     if (event.key === this.keys.kick) {
+        //         console.log('kick')
+        //     }
+        // })
+        // document.addEventListener('keyup', (event) => {
+        //     event.key === this.keys.moveRight ? this.keydown = false : null
+        // })
+        document.onkeydown = e => {
+            if (e.key === this.keys.moveRight) {
+                this.players[0].movePlayer('right')
             }
-            if (event.key === this.keys.moveRight) {
-                this.players[0].movePlayer('right')             
+            if (e.key === this.keys.moveLeft) {
+                this.players[0].movePlayer('left')
             }
-            if (event.key === this.keys.punch) {
-                console.log('punch')              
+            if (e.key === this.keys.kick) {
+                this.players[0].setStatus('kick')
             }
-            if (event.key === this.keys.kick) {
-                console.log('kick')              
+            if (e.key === this.keys.punch) {
+                this.players[0].setStatus('punch')
             }
-        })
+        }
+        document.onkeyup = e => {
+            if (e.key === this.keys.kick || e.key === this.keys.kick) {
+                this.players[0].setStatus('rest')
+            }
+        }
 
     },
 
