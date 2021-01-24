@@ -2,3 +2,22 @@
     margin: 0;
     padding: 0
 }
+
+body {
+    text-align: center;
+}
+
+.background {
+    background-image: url('../img/bg.jpg');
+    filter: grayscale(.6);
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#canvas {
+    width: 900px;
+    height: 600px;
+}
