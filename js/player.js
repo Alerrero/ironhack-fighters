@@ -29,7 +29,7 @@ class Player {
 
     hasPlayerReachBorder(direction) {
         if (direction === 'right') {
-            return (this.playerPos.x + 5 + this.playerSize.w > this.canvasSize.w)
+            return (this.playerPos.x + 10 + this.playerSize.w > this.canvasSize.w)
         } else { return this.playerPos.x - 5 <= 0 }
     }
 
