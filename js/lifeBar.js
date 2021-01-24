@@ -35,7 +35,6 @@ class LifeBar {
        
     }
 
-    setHealthBarWidth() {
-        this.healthBarSize.w = this.playerHealth
-    }
-}
+    setHealthBarWidth(health) {
+        this.healthBarSize.w = health
+}}

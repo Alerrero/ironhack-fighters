@@ -4,19 +4,19 @@ class Player {
         this.canvasSize = canvasSize
         this.playerType = playerType
         this.imageName = imageName
-        this.playerSize = { w: 0, h: 0 }
-        this.playerPos = { x: 0, y: 0 }
-        this.health = 100
+        this.playerSize = { w: 90, h: 150 }
+        this.playerPos = { x: 80, y: 350 }
+        this.health = 410
         this.status = 'rest'
         this.imageInstance = new Image()
-        this.imageInstance.src = `img/${this.imageName}`
+        this.imageInstance.src = `img/${this.imageName}.jpg`
 
     }
 
     movePlayer(direction) {
-        if (!this.hasReachBorder(direction)) {
+        if (!this.hasPlayerReachBorder(direction)) {
             direction === 'right' ? this.playerPos.x += 5 : this.playerPos.x -=5
-        }
+        } console.log(this.playerPos)
     }
 
     drawPlayer() {    
@@ -29,7 +29,7 @@ class Player {
 
     hasPlayerReachBorder(direction) {
         if (direction === 'right') {
-            return (this.playerPos.x + 5 - this.playerPos.w > this.canvasSize.w)
+            return (this.playerPos.x + 5 + this.playerSize.w > this.canvasSize.w)
         } else { return this.playerPos.x -5 <= 0 }
     }
 
