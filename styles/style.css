@@ -2,3 +2,10 @@
     margin: 0;
     padding: 0
 }
+
+.background {
+    background-image: url('../img/bg.jpg');
+    filter: grayscale(.6);
+    background-size: cover;
+    height: 100vh;
+}
