@@ -6,13 +6,18 @@ class LifeBar {
         this.playerType = playerType
         this.healthBarPos = { x: 0, y: 0 }
         this.initialWidth = 0
-        this.healthBarSize = { w: 0, h: 0 }    
+        this.healthBarSize = { w: 0, h: 0 }
+        this.frameworkWidth = 200
+        this.frameworkPosition = {
+            x = 0,
+            y = 0
+        }
     }
 
     setHealthBarInitialPos() {
-        this.playerType === 'player1' ? this.healthBarPos.x = 10 : this.healthBarPos.x = this.canvasSize.w - 10 - this.healthBarSize.w
+        this.playerType === 'player1' ? this.healthBarPos.x = this.frameworkPosition + this.frameworkWidth - this.healthBarSize.w : this.frameworkPosition
     }
-    
+
     drawFramework() {
         this.ctx.draw()
     }
