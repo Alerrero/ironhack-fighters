@@ -17,17 +17,23 @@ const ironhackFighters = {
     },
     intervalId: undefined,
 
-    init() {
-
+    init(canvasID) {
+        this.canvasDom = document.getElementById(`${canvasID}`)
+        this.ctx = this.canvasDom.getContext('2d')
     },
 
     render() {
 
     },
 
-    setDimensions() {
-
-    },
+    // setDimensions() {
+    //     this.canvasSize = {
+    //         w: window.innerWidth,
+    //         h: window.innerHeight,
+    //     }
+    //     this.canvasDom.width = this.canvasSize.w
+    //     this.canvasDom.height = this.canvasSize.h
+    // },
 
     setEventListener() {
 
@@ -56,4 +62,4 @@ const ironhackFighters = {
     restart() {
 
     },
-} 
+}
