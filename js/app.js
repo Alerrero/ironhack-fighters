@@ -27,10 +27,8 @@ const ironhackFighters = {
         this.players[0].setPlayerInitialPos()
         this.players[1].setPlayerInitialPos()
         this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, this.players[0].getPlayerHealth(), this.players[0].getPlayerType()))
-        this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, 300, 'player2'))
+        this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, this.players[1].getPlayerHealth(), this.players[1].getPlayerType()))
         this.render()
-
-        // this.lifeBars[0].fillHealthBar()
 
     },
 
@@ -47,12 +45,15 @@ const ironhackFighters = {
             this.lifeBars[1].fillHealthBar()
             this.players[0].drawPlayer()
             this.players[1].drawPlayer()
+
             this.setEventListener()
-            if (this.detectCollision()) {
+            if (this.hasDetectedCollision()) {
                 console.log('colision')
                 if (this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest') {
                     this.players[0].movePlayer('left')
                     this.players[1].movePlayer('right')
+                } else {
+                    this.playersAttack()
                 }
             }
         }, 1000 / 60)
@@ -101,8 +102,9 @@ const ironhackFighters = {
             }
         }
         document.onkeyup = e => {
-            if (e.key === this.keys.kick || e.key === this.keys.kick) {
+            if (e.key === this.keys.kick || e.key === this.keys.punch) {
                 this.players[0].setStatus('rest')
+                console.log(this.players[0].getStatus())
             }
         }
 
@@ -112,24 +114,36 @@ const ironhackFighters = {
 
     },
 
-    createPlayer() {
-
+    createPlayers() {
+        this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'popino'))
+        this.players.push(new Player(this.ctx, this.canvasSize, 'player2', 'popino'))
+            // console.log('create player')
     },
 
-    createLifeBar() {
-
+    createLifeBars() {
+        this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'popino'))
+        this.players.push(new Player(this.ctx, this.canvasSize, 'player2', 'popino'))
     },
 
-    detectCollision() {
+    hasDetectedCollision() {
         const posPlayer1 = this.players[0].getPosition().x
         const posPlayer2 = this.players[1].getPosition().x
         const borderPlayer1 = posPlayer1 + this.players[0].getPlayerSize().w
         const borderPlayer2 = posPlayer2
         return borderPlayer1 >= borderPlayer2
-
     },
 
-    dictateEndGame() {
+    playersAttack() {
+        if (this.players[0].getStatus() != 'rest') {
+            this.players[1].receiveDamage(this.players[0].getStatus())
+            console.log('player 1 has attacked player 2')
+        }
+        if (this.players[1].getStatus() != 'rest') {
+            this.players[0].receiveDamage(this.players[1].getStatus())
+        }
+    },
+
+    detectEndGame() {
 
     },
 
@@ -138,7 +152,5 @@ const ironhackFighters = {
     },
     clearScreen() {
         this.ctx.clearRect(0, 0, this.canvasSize.w, this.canvasSize.h)
-
-
     },
 }
