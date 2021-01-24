@@ -31,7 +31,6 @@ const ironhackFighters = {
         this.players[1].setPlayerInitialPos()
         this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, this.players[0].getPlayerHealth(), this.players[0].getPlayerType()))
         this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, this.players[1].getPlayerHealth(), this.players[1].getPlayerType()))
-        this.render()
 
     },
 
@@ -161,6 +160,9 @@ const ironhackFighters = {
             this.players[1].receiveDamage(this.players[0].getStatus())
             console.log('player 1 has attacked player 2')
             this.validAttack[0] = true
+            for (let i = 0; i < 3; i++) {
+                this.players[1].movePlayer('right')
+            }
             setTimeout(() => this.validAttack[0] = false, 1000)
         }
         if (this.players[1].getStatus() != 'rest') {
@@ -172,23 +174,30 @@ const ironhackFighters = {
 
 
     detectEndGame() {
-        // if (this.players.some(elm => {
-        //         elm.getPlayerHealth() <= 0
-        //     })) {
-        //     clearInterval(this.intervalID)
-        // }
         if (this.players[0].getPlayerHealth() < 0 || this.players[1].getPlayerHealth() < 0) {
             clearInterval(this.intervalID)
             const endMsg = document.createElement('div')
             endMsg.setAttribute('class', 'end-msg')
             endMsg.textContent = 'END GAME'
             document.querySelector('.background').appendChild(endMsg)
+                //this.restart()
         }
     },
 
     restart() {
+        this.lifeBars = []
+        this.players = []
+        this.intervalID = undefined
+        this.keydown = false
+        this.attackTime = 0
+        this.attackKey = false
+        this.validAttack = [false, false]
+        this.init('canvas')
+        document.getElementById('start-button').setAttribute('disabled', 'false')
+        console.log('restarted')
 
     },
+
     clearScreen() {
         this.ctx.clearRect(0, 0, this.canvasSize.w, this.canvasSize.h)
     },

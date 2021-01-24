@@ -1,5 +1,12 @@
 window.onload = () => {
-    //Escuchar botón Start Game
+    document.getElementById('start-button').onclick = function() {
+        document.getElementById('start-button').setAttribute('disabled', 'true')
+        startGame()
+    }
+}
+
+function startGame() {
+    ironhackFighters.render()
 }
 
 ironhackFighters.init('canvas')

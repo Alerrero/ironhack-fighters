@@ -17,6 +17,16 @@ body {
     align-items: center;
 }
 
+#start-button {
+    position: absolute;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#start-button:disabled {
+    display: none;
+}
+
 #canvas {
     width: 900px;
     height: 600px;
