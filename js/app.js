@@ -49,11 +49,16 @@ const ironhackFighters = {
             this.setEventListener()
             if (this.detectCollision()) {
                 console.log('colision')
-            }
+                if (this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest'){
+                    this.players[0].movePlayer('left')
+                    this.players[1].movePlayer('right')
+            
+                }
+            } 
 
 
            
-        }, 1000)
+        }, 1000 / 60)
 
     },
 
