@@ -16,7 +16,7 @@ class Player {
     movePlayer(direction) {
         if (!this.hasPlayerReachBorder(direction)) {
             direction === 'right' ? this.playerPos.x += 5 : this.playerPos.x -=5
-        } console.log(this.playerPos)
+        } 
     }
 
     drawPlayer() {    

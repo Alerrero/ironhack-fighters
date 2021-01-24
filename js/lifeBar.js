@@ -16,7 +16,7 @@ class LifeBar {
 
     setHealthBarPos() {
         this.playerType === 'player1' ? this.healthBarPos.x = this.frameworkPosition.x + this.frameworkWidth - this.healthBarSize.w : this.healthBarPos.x = this.frameworkPosition.x
-        console.log(this.healthBarPos.x, this.playerType, this.frameworkPosition.x)
+        
 
     }
 

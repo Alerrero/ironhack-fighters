@@ -22,6 +22,9 @@ const ironhackFighters = {
         this.ctx = this.canvasDom.getContext('2d')
         this.setDimensions()
         this.players.push(new Player (this.ctx, this.canvasSize, 'player1','popino'))
+        this.players.push(new Player (this.ctx, this.canvasSize, 'player2','popino'))
+        this.players[0].setPlayerInitialPos()
+        this.players[1].setPlayerInitialPos()
         this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, this.players[0].getPlayerHealth(),this.players[0].getPlayerType()))
         this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, 300, 'player2'))
         this.render()
@@ -36,13 +39,17 @@ const ironhackFighters = {
             this.lifeBars[0].drawFramework()
             this.lifeBars[1].drawFramework()
             this.lifeBars[0].setHealthBarWidth(this.players[0].getPlayerHealth())
-            //this.lifeBars[1].setHealthBarWidth(this.players[1].getPlayerHealth())
+            this.lifeBars[1].setHealthBarWidth(this.players[1].getPlayerHealth())
             this.lifeBars[0].setHealthBarPos()
-            //this.lifeBars[1].setHealthBarPos()
+            this.lifeBars[1].setHealthBarPos()
             this.lifeBars[0].fillHealthBar()
-            //this.lifeBars[1].fillHealthBar()
+            this.lifeBars[1].fillHealthBar()
             this.players[0].drawPlayer()
+            this.players[1].drawPlayer()
             this.setEventListener()
+            if (this.detectCollision()) {
+                console.log('colision')
+            }
 
 
            
@@ -58,7 +65,9 @@ const ironhackFighters = {
     setEventListener() {
         document.addEventListener('keydown', (event) => { 
             if (event.key === this.keys.moveLeft) {
+                
                 this.players[0].movePlayer('left')
+
                 
             }
             if (event.key === this.keys.moveRight) {
@@ -87,6 +96,11 @@ const ironhackFighters = {
     },
 
     detectCollision() {
+        const posPlayer1 = this.players[0].getPosition().x
+        const posPlayer2 = this.players[1].getPosition().x
+        const borderPlayer1 = posPlayer1 + this.players[0].getPlayerSize().w
+        const borderPlayer2 = posPlayer2
+        return borderPlayer1 >= borderPlayer2
 
     },
 
