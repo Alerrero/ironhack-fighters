@@ -15,7 +15,7 @@ const ironhackFighters = {
         punch: 'a',
         kick: 'd'
     },
-    intervalId: undefined,
+    intervalID: undefined,
     keydown: false,
     attackTime: 0,
     attackKey: false,
@@ -36,7 +36,7 @@ const ironhackFighters = {
     },
 
     render() {
-        setInterval(() => {
+        this.intervalID = setInterval(() => {
             this.clearScreen()
             this.lifeBars[0].drawFramework()
             this.lifeBars[1].drawFramework()
@@ -48,10 +48,7 @@ const ironhackFighters = {
             this.lifeBars[1].fillHealthBar()
             this.players[0].drawPlayer()
             this.players[1].drawPlayer()
-
             this.setEventListener()
-
-
             if (this.hasDetectedCollision()) {
                 if (this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest') {
                     this.players[0].movePlayer('left')
@@ -61,8 +58,8 @@ const ironhackFighters = {
                     this.playersAttack()
                 }
                 this.attackTime = 0
-
             }
+            this.detectEndGame()
         }, 1000 / 60)
 
     },
@@ -175,7 +172,18 @@ const ironhackFighters = {
 
 
     detectEndGame() {
-
+        // if (this.players.some(elm => {
+        //         elm.getPlayerHealth() <= 0
+        //     })) {
+        //     clearInterval(this.intervalID)
+        // }
+        if (this.players[0].getPlayerHealth() < 0 || this.players[1].getPlayerHealth() < 0) {
+            clearInterval(this.intervalID)
+            const endMsg = document.createElement('div')
+            endMsg.setAttribute('class', 'end-msg')
+            endMsg.textContent = 'END GAME'
+            document.querySelector('.background').appendChild(endMsg)
+        }
     },
 
     restart() {

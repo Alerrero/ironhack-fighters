@@ -22,3 +22,10 @@ body {
     height: 600px;
     background-color: rgb(180, 147, 147);
 }
+
+.end-msg {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+}
