@@ -6,7 +6,7 @@ const ironhackFighters = {
     canvasDOM: undefined,
     /** @type {CanvasRenderingContext2D} */
     ctx: undefined,
-    canvasSize: { w: 0, h: 0 },
+    canvasSize: { w: 900, h: 600 },
     lifeBars: [],
     players: [],
     keys: {
@@ -20,20 +20,21 @@ const ironhackFighters = {
     init(canvasID) {
         this.canvasDom = document.getElementById(`${canvasID}`)
         this.ctx = this.canvasDom.getContext('2d')
+        this.setDimensions()
+        this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, 100, 'player1'))
+        this.lifeBars[0].setHealthBarPos()
+        this.lifeBars[0].fillHealthBar()
+        console.log(this.lifeBars[0])
     },
 
     render() {
 
     },
 
-    // setDimensions() {
-    //     this.canvasSize = {
-    //         w: window.innerWidth,
-    //         h: window.innerHeight,
-    //     }
-    //     this.canvasDom.width = this.canvasSize.w
-    //     this.canvasDom.height = this.canvasSize.h
-    // },
+    setDimensions() {
+        this.canvasDom.width = this.canvasSize.w
+        this.canvasDom.height = this.canvasSize.h
+    },
 
     setEventListener() {
 
