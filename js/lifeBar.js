@@ -31,9 +31,11 @@ class LifeBar {
     }
 
     fillHealthBar() {
-        // this.playerType === 'player1' ? this.ctx.fillRect(this.healthBarPos.x, this.healthBarPos.y, this.healthBarSize.w, this.healthBarSize.h) : this.ctx.fillRect(this.healthBarPos.x + this.initialWidth - this.healthBarSize.w, this.healthBarPos.y, this.healthBarSize.w, this.healthBarSize.h)
-        this.ctx.fillStyle = 'green'
-        this.ctx.fillRect(this.healthBarPos.x, this.healthBarPos.y, this.healthBarSize.w, this.healthBarSize.h)
+        
+        if (this.healthBarSize.w > 0) {
+            this.ctx.fillStyle = 'green'
+            this.ctx.fillRect(this.healthBarPos.x, this.healthBarPos.y, this.healthBarSize.w, this.healthBarSize.h)
+        }
     }
 
     setHealthBarWidth(health) {

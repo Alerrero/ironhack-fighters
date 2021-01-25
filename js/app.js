@@ -20,15 +20,19 @@ const ironhackFighters = {
     attackTime: 0,
     attackKey: false,
     validAttack: [false, false],
+    frameCount: 0,
 
     init(canvasID) {
         this.canvasDom = document.getElementById(`${canvasID}`)
         this.ctx = this.canvasDom.getContext('2d')
         this.setDimensions()
         this.createPlayers()
+        this.createNPC()
+        this.players[1].createPattern()
         this.players[0].setPlayerInitialPos()
         this.players[1].setPlayerInitialPos()
         this.createLifeBars()
+        //this.attackPaterns()
 
     },
 
@@ -44,15 +48,21 @@ const ironhackFighters = {
             this.players.forEach(elm => elm.drawPlayer())
             this.setEventListener()
             if (this.hasDetectedCollision()) {
+                console.log('colision')
                 if (this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest') {
                     this.players[0].movePlayer('left')
                     this.players[1].movePlayer('right')
                 } else {
-                    console.log('invocamos playersAttack')
                     this.playersAttack()
                 }
                 this.attackTime = 0
             }
+            this.frameCount++
+            if (this.frameCount % 15 === 0) {
+                console.log(this.players[1].getStatus())
+                this.players[1].attackPattern()
+            }
+            this.frameCount === 6000 ? this.frameCount = 0 : null
             this.detectEndGame()
         }, 1000 / 60)
 
@@ -97,13 +107,11 @@ const ironhackFighters = {
             if (e.key === this.keys.kick) {
                 this.players[0].setStatus('kick')
                 this.attackKey = true
-                console.log(this.players[0].getStatus())
 
             }
             if (e.key === this.keys.punch) {
                 this.players[0].setStatus('punch')
                 this.attackKey = true
-                console.log(this.players[0].getStatus())
 
             }
         }
@@ -112,7 +120,6 @@ const ironhackFighters = {
                 this.players[0].setStatus('rest')
                 this.attackKey = false
                 this.attackTime = 0
-                console.log(this.players[0].getStatus())
                 this.validAttack[0] = false
             }
         }
@@ -125,8 +132,13 @@ const ironhackFighters = {
 
     createPlayers() {
         this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'popino'))
-        this.players.push(new Player(this.ctx, this.canvasSize, 'player2', 'popino'))
+        
     },
+
+    createNPC() {
+        this.players.push(new NPC(this.ctx, this.canvasSize, 'player2', 'popino'))
+    },
+
 
     createLifeBars() {
         this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, this.players[0].getPlayerHealth(), this.players[0].getPlayerType()))
@@ -136,47 +148,66 @@ const ironhackFighters = {
     hasDetectedCollision() {
         const posPlayer1 = this.players[0].getPosition().x
         const posPlayer2 = this.players[1].getPosition().x
-        const borderPlayer2 = posPlayer2
+        let borderPlayer2 = posPlayer2
         let borderPlayer1 = 0
+
 
         if (this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest') {
             borderPlayer1 = posPlayer1 + this.players[0].getPlayerSize().w
         } else {
             if (this.players[0].getStatus() != 'rest') {
                 borderPlayer1 = posPlayer1 + this.players[0].getPlayerSize().w + 20
+            } if (this.players[1].getStatus() != 'rest') {
+                borderPlayer2 = posPlayer2 + this.players[1].getPlayerSize().w - 20
             }
         }
         return borderPlayer1 >= borderPlayer2
     },
 
     playersAttack() {
-        console.log('valid key: ', this.validAttack[0])
-        if (this.players[0].getStatus() != 'rest' && !this.validAttack[0]) {
-            this.players[1].receiveDamage(this.players[0].getStatus())
-            console.log('player 1 has attacked player 2')
-            this.validAttack[0] = true
-            for (let i = 0; i < 3; i++) {
-                this.players[1].movePlayer('right')
+            if (this.players[0].getStatus() != 'rest' && !this.validAttack[0]) {
+                this.players[1].receiveDamage(this.players[0].getStatus())
+                this.validAttack[0] = true
+                for (let i = 0; i < 3; i++) {
+                    this.players[1].movePlayer('right')
+                }
+                setTimeout(() => this.validAttack[0] = false, 1000)
             }
-            setTimeout(() => this.validAttack[0] = false, 1000)
-        }
-        if (this.players[1].getStatus() != 'rest') {
-            this.players[0].receiveDamage(this.players[1].getStatus())
-            this.validAttack[1] = true
-            setTimeout(() => this.validAttack[0] = false, 1000)
-        }
+            if (this.players[1].getStatus() != 'rest') {
+                this.players[0].receiveDamage(this.players[1].getStatus())
+                this.validAttack[1] = true
+                setTimeout(() => this.validAttack[0] = false, 1000)
+            }
+    },
+
+    attackPaterns() {
+
+        this.NPCAttacks.push('left')
+        this.NPCAttacks.push('right')
+        this.NPCAttacks.push('punch')
+        this.NPCAttacks.push('kick')
+        
+    },
+
+    setAttackPaterns() {
+        return this.NPCAttacks[0]
     },
 
 
+
     detectEndGame() {
-        if (this.players[0].getPlayerHealth() < 0 || this.players[1].getPlayerHealth() < 0) {
-            clearInterval(this.intervalID)
-            const endMsg = document.createElement('div')
-            endMsg.setAttribute('class', 'end-msg')
-            endMsg.textContent = 'END GAME'
-            document.querySelector('.background').appendChild(endMsg)
-                //this.restart()
+       
+        this.lifeBars.forEach ((elm,idx) => {
+            if (this.players[idx].getPlayerHealth() <= 0 ) {
+                elm.drawFramework()
+                clearInterval(this.intervalID)
+                const endMsg = document.createElement('div')
+                endMsg.setAttribute('class', 'end-msg')
+                endMsg.textContent = 'END GAME'
+                document.querySelector('.background').appendChild(endMsg)
         }
+        })
+                //this.restart()    
     },
 
     restart() {
@@ -189,7 +220,6 @@ const ironhackFighters = {
         this.validAttack = [false, false]
         this.init('canvas')
         document.getElementById('start-button').setAttribute('disabled', 'false')
-        console.log('restarted')
 
     },
 
