@@ -11,11 +11,22 @@ class Player {
         }
         this.health = 410
         this.status = 'rest'
-        this.imageInstance = new Image()
-        this.imageInstance.src = `animation/${this.imageName}.png`
         this.playerValidAttack = false
-        this.imageInstance.frames = 6
-        this.imageInstance.framesIndex = 0
+
+        this.imageInstanceRun = new Image()
+        this.imageInstanceRun.src = `animation/${this.imageName}Run.png`
+        this.imageInstanceRun.frames = 6
+        this.imageInstanceRun.framesIndex = 0
+
+        this.imageInstancePunch = new Image()
+        this.imageInstancePunch.src = `animation/${this.imageName}Punch.png`
+        this.imageInstancePunch.frames = 5
+        this.imageInstancePunch.framesIndex = 0
+
+        this.imageInstanceKick = new Image()
+        this.imageInstanceKick.src = `animation/${this.imageName}Kick.png`
+        this.imageInstanceKick.frames = 6
+        this.imageInstanceKick.framesIndex = 0
         
     }
 
@@ -26,32 +37,43 @@ class Player {
     }
 
     drawPlayer(frames) {
+        let instance
+        
+        switch (this.status) {
+            case 'rest':   
+                instance = this.imageInstanceRun
+                break;
+
+            case 'punch':
+                console.log(this.status)
+                instance = this.imageInstancePunch
+                break;
+        
+            default:
+                instance = this.imageInstanceKick
+                break;
+        }
         this.ctx.drawImage(
-            // this.imageInstance,
-            // this.playerPos.x, 
-            // this.playerPos.y, 
-            // this.playerSize.w, 
-            // this.playerSize.h
-            this.imageInstance,
-            this.imageInstance.framesIndex * Math.floor(this.imageInstance.width / this.imageInstance.frames),
+            instance,
+            instance.framesIndex * Math.floor(instance.width / instance.frames),
             0,
-            Math.floor(this.imageInstance.width / this.imageInstance.frames),
-            this.imageInstance.height,
+            Math.floor(instance.width / instance.frames),
+            instance.height,
             this.playerPos.x,
             this.playerPos.y,
             this.playerSize.w,
             this.playerSize.h
         )
-        this.animate(frames)
+        this.animate(frames, instance)
 
     }
 
-    animate(frames) {
-        if (frames % 5 ==0) {
-            this.imageInstance.framesIndex++;
+    animate(frames, instance) {
+        if (frames % 5 == 0) {
+            instance.framesIndex++;
         }
-        if (this.imageInstance.framesIndex > this.imageInstance.frames -1) {
-            this.imageInstance.framesIndex = 0
+        if (instance.framesIndex > instance.frames -1) {
+            instance.framesIndex = 0
         }
     }
 

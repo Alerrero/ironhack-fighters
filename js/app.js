@@ -49,9 +49,8 @@ const ironhackFighters = {
             this.setEventListener()
 
             if (this.hasDetectedCollision()) {
-                console.log('colision')
                 
-                console.log(this.players[1].status)
+                
                 if (this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest') {
                     this.players[0].movePlayer('left')
                     this.players[1].movePlayer('right')
@@ -133,12 +132,12 @@ const ironhackFighters = {
     },
 
     createPlayers() {
-        this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'player1Run'))
+        this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'player1'))
         
     },
 
     createNPC() {
-        this.players.push(new NPC(this.ctx, this.canvasSize, 'player2', 'player2Run'))
+        this.players.push(new NPC(this.ctx, this.canvasSize, 'player2', 'player2'))
     },
 
 
@@ -163,7 +162,6 @@ const ironhackFighters = {
             }
         }
         
-        console.log(borderPlayer1, borderPlayer2)
         return borderPlayer1 >= borderPlayer2
     },
 
