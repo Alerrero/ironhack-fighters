@@ -27,6 +27,12 @@ class Player {
         this.imageInstanceKick.src = `animation/${this.imageName}Kick.png`
         this.imageInstanceKick.frames = 6
         this.imageInstanceKick.framesIndex = 0
+
+        this.imageInstanceRest = new Image()
+        this.imageInstanceRest.src = `animation/${this.imageName}Rest.png`
+        this.imageInstanceRest.frames = 4
+        this.imageInstanceRest.framesIndex = 0
+
         
     }
 
@@ -41,6 +47,10 @@ class Player {
         
         switch (this.status) {
             case 'rest':   
+                instance = this.imageInstanceRest
+                break;
+
+            case 'move':   
                 instance = this.imageInstanceRun
                 break;
 
@@ -89,7 +99,7 @@ class Player {
 
     playerAttack(playerObj, validAttack) {
         if (!this.playerValidAttack) {
-            if (this.getStatus() != 'rest' && !validAttack) {
+            if (this.getStatus() != 'rest' && this.getStatus() != 'move' && !validAttack) {
                 playerObj.receiveDamage(this.getStatus())
                 this.playerValidAttack = true
                 if (this.playerType === 'player1') {

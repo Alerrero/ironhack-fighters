@@ -51,7 +51,7 @@ const ironhackFighters = {
             if (this.hasDetectedCollision()) {
                 
                 
-                if (this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest') {
+                if ((this.players[0].getStatus() === 'rest' || this.players[0].getStatus() === 'move') && (this.players[1].getStatus() === 'rest' || this.players[1].getStatus() === 'move')) {
                     this.players[0].movePlayer('left')
                     this.players[1].movePlayer('right')
                 } else {
@@ -101,9 +101,11 @@ const ironhackFighters = {
         document.onkeydown = e => {
             if (e.key === this.keys.moveRight) {
                 this.players[0].movePlayer('right')
+                this.players[0].setStatus('move')
             }
             if (e.key === this.keys.moveLeft) {
                 this.players[0].movePlayer('left')
+                this.players[0].setStatus('move')
             }
             if (e.key === this.keys.kick) {
                 this.players[0].setStatus('kick')
@@ -118,11 +120,12 @@ const ironhackFighters = {
         }
         document.onkeyup = e => {
             if (e.key === this.keys.kick || e.key === this.keys.punch) {
-                this.players[0].setStatus('rest')
+                
                 this.attackKey = false
                 this.attackTime = 0
                 this.validAttack[0] = false
             }
+            this.players[0].setStatus('rest')
         }
 
     },
@@ -153,11 +156,11 @@ const ironhackFighters = {
 
 
 
-        if (!(this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest')) {
+        if (!((this.players[0].getStatus() === 'rest' || this.players[0].getStatus() === 'move') && (this.players[1].getStatus() === 'rest' || this.players[1].getStatus() === 'move'))) {
             
-            if (this.players[0].getStatus() != 'rest') {
+            if (this.players[0].getStatus() != 'rest' && this.players[0].getStatus() != 'move') {
                 borderPlayer1 += 20
-            } if (this.players[1].getStatus() != 'rest') {
+            } if (this.players[1].getStatus() != 'rest' && this.players[1].getStatus() != 'move') {
                 borderPlayer2 -= 20
             }
         }

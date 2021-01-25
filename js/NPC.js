@@ -8,7 +8,7 @@ class NPC extends Player {
     }
 
     createPattern() {
-        this.attackActions.push('left', 'right', 'punch', 'kick')
+        this.attackActions.push('left', 'left', 'left', 'left', 'left', 'punch', 'right', 'right', 'right', 'kick', 'left', 'left', 'punch')
     }
 
     attackPattern() {
@@ -16,7 +16,7 @@ class NPC extends Player {
             case 'left':
             case 'right':
                 this.movePlayer(this.attackActions[this.attackActionsIndex])
-                this.setStatus('rest')
+                this.setStatus('move')
                 break;
         
             default:
