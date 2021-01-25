@@ -30,7 +30,7 @@ body {
 #canvas {
     width: 900px;
     height: 600px;
-    background-color: rgb(180, 147, 147);
+    background-color: gray;
 }
 
 .end-msg {

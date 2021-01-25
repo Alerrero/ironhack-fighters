@@ -45,10 +45,12 @@ const ironhackFighters = {
                 elm.setHealthBarPos()
                 elm.fillHealthBar()
             })
-            this.players.forEach(elm => elm.drawPlayer())
+            this.players.forEach(elm => elm.drawPlayer(this.frameCount))
             this.setEventListener()
+
             if (this.hasDetectedCollision()) {
                 console.log('colision')
+                
                 console.log(this.players[1].status)
                 if (this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest') {
                     this.players[0].movePlayer('left')
@@ -131,12 +133,12 @@ const ironhackFighters = {
     },
 
     createPlayers() {
-        this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'popino'))
+        this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'player1Run'))
         
     },
 
     createNPC() {
-        this.players.push(new NPC(this.ctx, this.canvasSize, 'player2', 'popino'))
+        this.players.push(new NPC(this.ctx, this.canvasSize, 'player2', 'player2Run'))
     },
 
 
@@ -146,21 +148,22 @@ const ironhackFighters = {
     },
 
     hasDetectedCollision() {
-        const posPlayer1 = this.players[0].getPosition().x
-        const posPlayer2 = this.players[1].getPosition().x
-        let borderPlayer2 = posPlayer2
-        let borderPlayer1 = posPlayer1 + this.players[0].getPlayerSize().w
+        
+        let borderPlayer1 = this.players[0].getRealBorder()
+        let borderPlayer2 = this.players[1].getRealBorder()
 
 
-        if (this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest') {
-            borderPlayer1 = posPlayer1 + this.players[0].getPlayerSize().w
-        } else {
+
+        if (!(this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest')) {
+            
             if (this.players[0].getStatus() != 'rest') {
-                borderPlayer1 = posPlayer1 + this.players[0].getPlayerSize().w + 20
+                borderPlayer1 += 20
             } if (this.players[1].getStatus() != 'rest') {
-                borderPlayer2 = posPlayer2 - 20
+                borderPlayer2 -= 20
             }
         }
+        
+        console.log(borderPlayer1, borderPlayer2)
         return borderPlayer1 >= borderPlayer2
     },
 

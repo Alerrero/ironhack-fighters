@@ -4,14 +4,19 @@ class Player {
         this.canvasSize = canvasSize
         this.playerType = playerType
         this.imageName = imageName
-        this.playerSize = { w: 90, h: 150 }
-        this.playerPos = { x: 80, y: 350 }
+        this.playerSize = { w: 200, h: 134 }
+        this.playerPos = { 
+            x: this.playerType === 'player1' ? 80 : 500,
+            y: 350 
+        }
         this.health = 410
         this.status = 'rest'
         this.imageInstance = new Image()
-        this.imageInstance.src = `img/${this.imageName}.jpg`
+        this.imageInstance.src = `animation/${this.imageName}.png`
         this.playerValidAttack = false
-
+        this.imageInstance.frames = 6
+        this.imageInstance.framesIndex = 0
+        
     }
 
     movePlayer(direction) {
@@ -20,8 +25,34 @@ class Player {
         }
     }
 
-    drawPlayer() {
-        this.ctx.drawImage(this.imageInstance, this.playerPos.x, this.playerPos.y, this.playerSize.w, this.playerSize.h)
+    drawPlayer(frames) {
+        this.ctx.drawImage(
+            // this.imageInstance,
+            // this.playerPos.x, 
+            // this.playerPos.y, 
+            // this.playerSize.w, 
+            // this.playerSize.h
+            this.imageInstance,
+            this.imageInstance.framesIndex * Math.floor(this.imageInstance.width / this.imageInstance.frames),
+            0,
+            Math.floor(this.imageInstance.width / this.imageInstance.frames),
+            this.imageInstance.height,
+            this.playerPos.x,
+            this.playerPos.y,
+            this.playerSize.w,
+            this.playerSize.h
+        )
+        this.animate(frames)
+
+    }
+
+    animate(frames) {
+        if (frames % 5 ==0) {
+            this.imageInstance.framesIndex++;
+        }
+        if (this.imageInstance.framesIndex > this.imageInstance.frames -1) {
+            this.imageInstance.framesIndex = 0
+        }
     }
 
     receiveDamage(attackType) {
@@ -79,6 +110,11 @@ class Player {
 
     getPlayerSize() {
         return this.playerSize
+    }
+
+    getRealBorder() {
+        
+        return this.playerType === 'player1' ? this.playerSize.w + this.playerPos.x - 52 : this.playerPos.x + 52
     }
 
     setPlayerInitialPos() {
