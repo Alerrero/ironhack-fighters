@@ -25,28 +25,23 @@ const ironhackFighters = {
         this.canvasDom = document.getElementById(`${canvasID}`)
         this.ctx = this.canvasDom.getContext('2d')
         this.setDimensions()
-        this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'popino'))
-        this.players.push(new Player(this.ctx, this.canvasSize, 'player2', 'popino'))
+        this.createPlayers()
         this.players[0].setPlayerInitialPos()
         this.players[1].setPlayerInitialPos()
-        this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, this.players[0].getPlayerHealth(), this.players[0].getPlayerType()))
-        this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, this.players[1].getPlayerHealth(), this.players[1].getPlayerType()))
+        this.createLifeBars()
 
     },
 
     render() {
         this.intervalID = setInterval(() => {
             this.clearScreen()
-            this.lifeBars[0].drawFramework()
-            this.lifeBars[1].drawFramework()
-            this.lifeBars[0].setHealthBarWidth(this.players[0].getPlayerHealth())
-            this.lifeBars[1].setHealthBarWidth(this.players[1].getPlayerHealth())
-            this.lifeBars[0].setHealthBarPos()
-            this.lifeBars[1].setHealthBarPos()
-            this.lifeBars[0].fillHealthBar()
-            this.lifeBars[1].fillHealthBar()
-            this.players[0].drawPlayer()
-            this.players[1].drawPlayer()
+            this.lifeBars.forEach((elm, idx) => {
+                elm.drawFramework()
+                elm.setHealthBarWidth(this.players[idx].getPlayerHealth())
+                elm.setHealthBarPos()
+                elm.fillHealthBar()
+            })
+            this.players.forEach(elm => elm.drawPlayer())
             this.setEventListener()
             if (this.hasDetectedCollision()) {
                 if (this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest') {
@@ -134,8 +129,8 @@ const ironhackFighters = {
     },
 
     createLifeBars() {
-        this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'popino'))
-        this.players.push(new Player(this.ctx, this.canvasSize, 'player2', 'popino'))
+        this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, this.players[0].getPlayerHealth(), this.players[0].getPlayerType()))
+        this.lifeBars.push(new LifeBar(this.ctx, this.canvasSize, this.players[1].getPlayerHealth(), this.players[1].getPlayerType()))
     },
 
     hasDetectedCollision() {
