@@ -49,6 +49,7 @@ const ironhackFighters = {
             this.setEventListener()
             if (this.hasDetectedCollision()) {
                 console.log('colision')
+                console.log(this.players[1].status)
                 if (this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest') {
                     this.players[0].movePlayer('left')
                     this.players[1].movePlayer('right')
@@ -58,8 +59,7 @@ const ironhackFighters = {
                 this.attackTime = 0
             }
             this.frameCount++
-            if (this.frameCount % 15 === 0) {
-                console.log(this.players[1].getStatus())
+            if (this.frameCount % 60 === 0) {
                 this.players[1].attackPattern()
             }
             this.frameCount === 6000 ? this.frameCount = 0 : null
@@ -149,7 +149,7 @@ const ironhackFighters = {
         const posPlayer1 = this.players[0].getPosition().x
         const posPlayer2 = this.players[1].getPosition().x
         let borderPlayer2 = posPlayer2
-        let borderPlayer1 = 0
+        let borderPlayer1 = posPlayer1 + this.players[0].getPlayerSize().w
 
 
         if (this.players[0].getStatus() === 'rest' && this.players[1].getStatus() === 'rest') {
@@ -158,42 +158,41 @@ const ironhackFighters = {
             if (this.players[0].getStatus() != 'rest') {
                 borderPlayer1 = posPlayer1 + this.players[0].getPlayerSize().w + 20
             } if (this.players[1].getStatus() != 'rest') {
-                borderPlayer2 = posPlayer2 + this.players[1].getPlayerSize().w - 20
+                borderPlayer2 = posPlayer2 - 20
             }
         }
         return borderPlayer1 >= borderPlayer2
     },
 
     playersAttack() {
-            if (this.players[0].getStatus() != 'rest' && !this.validAttack[0]) {
-                this.players[1].receiveDamage(this.players[0].getStatus())
-                this.validAttack[0] = true
-                for (let i = 0; i < 3; i++) {
-                    this.players[1].movePlayer('right')
-                }
-                setTimeout(() => this.validAttack[0] = false, 1000)
-            }
-            if (this.players[1].getStatus() != 'rest') {
-                this.players[0].receiveDamage(this.players[1].getStatus())
-                this.validAttack[1] = true
-                setTimeout(() => this.validAttack[0] = false, 1000)
-            }
-    },
-
-    attackPaterns() {
-
-        this.NPCAttacks.push('left')
-        this.NPCAttacks.push('right')
-        this.NPCAttacks.push('punch')
-        this.NPCAttacks.push('kick')
-        
-    },
-
-    setAttackPaterns() {
-        return this.NPCAttacks[0]
+            this.players[0].playerAttack(this.players[1], this.validAttack[0])
+            this.players[1].playerAttack(this.players[0], this.validAttack[1])
     },
 
 
+    //AÑADIMOS ESTO EN PLAYER?
+    // player1Attack(obk) {
+    //     if (this.players[0].getStatus() != 'rest' && !this.validAttack[0]) {
+    //         this.players[1].receiveDamage(this.players[0].getStatus())
+    //         this.validAttack[0] = true
+    //         for (let i = 0; i < 3; i++) {
+    //             this.players[1].movePlayer('right')
+    //         }
+    //         setTimeout(() => this.validAttack[0] = false, 1000)
+    //     }
+    // },
+
+    // player2Attack() {
+    //     if (this.players[1].getStatus() != 'rest' && !this.validAttack[1]) {
+    //         console.log('te estoy atacando!')
+    //         this.players[0].receiveDamage(this.players[1].getStatus())
+    //         this.validAttack[1] = true
+    //         for (let i = 0; i < 3; i++) {
+    //             this.players[0].movePlayer('left')
+    //         }
+    //         setTimeout(() => this.validAttack[1] = false, 1000)
+    //     }
+    // },
 
     detectEndGame() {
        

@@ -21,7 +21,6 @@ class NPC extends Player {
         
             default:
                 this.setStatus(this.attackActions[this.attackActionsIndex])
-                console.log(this.attackActions)
                 break;
         }                
         this.attackActionsIndex === this.attackActions.length - 1 ? this.attackActionsIndex = 0 : this.attackActionsIndex++

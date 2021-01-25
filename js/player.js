@@ -10,6 +10,7 @@ class Player {
         this.status = 'rest'
         this.imageInstance = new Image()
         this.imageInstance.src = `img/${this.imageName}.jpg`
+        this.playerValidAttack = false
 
     }
 
@@ -31,6 +32,25 @@ class Player {
         if (direction === 'right') {
             return (this.playerPos.x + 10 + this.playerSize.w > this.canvasSize.w)
         } else { return this.playerPos.x - 5 <= 0 }
+    }
+
+    playerAttack(playerObj, validAttack) {
+        if (!this.playerValidAttack) {
+            if (this.getStatus() != 'rest' && !validAttack) {
+                playerObj.receiveDamage(this.getStatus())
+                this.playerValidAttack = true
+                if (this.playerType === 'player1') {
+                    for (let i = 0; i < 3; i++) {
+                        playerObj.movePlayer('right')
+                    }
+                } else {
+                    for (let i = 0; i < 3; i++) {
+                        playerObj.movePlayer('left')
+                    }
+                }
+                setTimeout(() => this.playerValidAttack = false, 1000)
+            }
+        }
     }
 
     getPlayerType() {
