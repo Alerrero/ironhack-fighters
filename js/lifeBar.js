@@ -38,7 +38,7 @@ class LifeBar {
             this.frameworkPosition.x,
             this.frameworkPosition.y,
             this.frameworkWidth,
-            50
+            300
         )
     }
 
