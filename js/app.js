@@ -221,13 +221,13 @@ const ironhackFighters = {
     detectEndGame() {
 
         this.lifeBars.forEach((elm, idx) => {
-            if (this.players[idx].getPlayerHealth() <= 200) {
+            if (this.players[idx].getPlayerHealth() <= 0) {
                 elm.drawBottomFramework()
                 clearInterval(this.intervalID)
                 elm.drawTopFramework()
                 document.querySelector('.end-game').style.display = 'block'
                 document.getElementById('restart-button').disabled = false
-                if (this.players[0].getPlayerHealth() <= 200) {
+                if (this.players[0].getPlayerHealth() <= 0) {
                     document.querySelector('.end-game p').innerText = 'YOU LOSE'
                 } else {
                     document.querySelector('.end-game p').innerText = 'YOU WIN'
