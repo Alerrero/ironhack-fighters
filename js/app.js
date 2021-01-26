@@ -45,10 +45,11 @@ const ironhackFighters = {
             this.clearScreen()
             this.canvasBackground.drawCanvasBackground(this.frameCount)
             this.lifeBars.forEach((elm, idx) => {
-                elm.drawFramework()
+                elm.drawBottomFramework()
                 elm.setHealthBarWidth(this.players[idx].getPlayerHealth())
                 elm.setHealthBarPos()
                 elm.fillHealthBar()
+                elm.drawTopFramework()
             })
             this.players.forEach(elm => elm.drawPlayer(this.frameCount))
             this.setEventListener()
@@ -221,7 +222,7 @@ const ironhackFighters = {
 
         this.lifeBars.forEach((elm, idx) => {
             if (this.players[idx].getPlayerHealth() <= 0) {
-                elm.drawFramework()
+                elm.drawBottomFramework()
                 clearInterval(this.intervalID)
                 document.querySelector('.end-game').style.display = 'block'
                 document.getElementById('restart-button').disabled = false
