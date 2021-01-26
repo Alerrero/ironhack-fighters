@@ -5,11 +5,11 @@ class Player {
         this.playerType = playerType
         this.imageName = imageName
         this.playerSize = { w: 200, h: 134 }
-        this.playerPos = { 
+        this.playerPos = {
             x: this.playerType === 'player1' ? 80 : 500,
-            y: 350 
+            y: 350
         }
-        this.health = 410
+        this.health = 330
         this.status = 'rest'
         this.playerValidAttack = false
 
@@ -33,7 +33,7 @@ class Player {
         this.imageInstanceRest.frames = 4
         this.imageInstanceRest.framesIndex = 0
 
-        
+
     }
 
     movePlayer(direction) {
@@ -44,13 +44,13 @@ class Player {
 
     drawPlayer(frames) {
         let instance
-        
+
         switch (this.status) {
-            case 'rest':   
+            case 'rest':
                 instance = this.imageInstanceRest
                 break;
 
-            case 'move':   
+            case 'move':
                 instance = this.imageInstanceRun
                 break;
 
@@ -58,7 +58,7 @@ class Player {
                 console.log(this.status)
                 instance = this.imageInstancePunch
                 break;
-        
+
             default:
                 instance = this.imageInstanceKick
                 break;
@@ -82,7 +82,7 @@ class Player {
         if (frames % 5 == 0) {
             instance.framesIndex++;
         }
-        if (instance.framesIndex > instance.frames -1) {
+        if (instance.framesIndex > instance.frames - 1) {
             instance.framesIndex = 0
         }
     }
@@ -145,7 +145,7 @@ class Player {
     }
 
     getRealBorder() {
-        
+
         return this.playerType === 'player1' ? this.playerSize.w + this.playerPos.x - 52 : this.playerPos.x + 52
     }
 

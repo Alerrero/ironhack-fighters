@@ -7,13 +7,15 @@ class LifeBar {
         this.healthBarPos = { x: 0, y: 20 }
         this.initialWidth = 0
         this.healthBarSize = { w: this.playerHealth, h: 50 }
-        this.frameworkWidth = this.canvasSize.w / 2 - 40
+        this.frameworkWidth = 330
         this.frameworkPosition = {
             x: 0,
             y: 20
         }
-        this.imageInstance = new Image()
-        this.imageInstance.src = 'img/healthBar.png'
+        this.imageInstance1 = new Image()
+        this.imageInstance1.src = 'img/healthBar1.png'
+        this.imageInstance2 = new Image()
+        this.imageInstance2.src = 'img/healthBar2.png'
     }
 
     setHealthBarPos() {
@@ -25,20 +27,22 @@ class LifeBar {
     drawBottomFramework() {
         this.ctx.fillStyle = 'red'
         if (this.playerType === 'player1') {
-            this.frameworkPosition.x = 20
+            this.frameworkPosition.x = 50
         } else {
-            this.frameworkPosition.x = this.canvasSize.w / 2 + 20
+            this.frameworkPosition.x = this.canvasSize.w / 2 + 50
         }
         this.ctx.fillRect(this.frameworkPosition.x, this.frameworkPosition.y, this.frameworkWidth, 50)
     }
 
     drawTopFramework() {
+        let instance
+        this.playerType === 'player1' ? instance = this.imageInstance1 : instance = this.imageInstance2
         this.ctx.drawImage(
-            this.imageInstance,
-            this.frameworkPosition.x,
+            instance,
+            this.frameworkPosition.x - 20,
             this.frameworkPosition.y,
-            this.frameworkWidth,
-            300
+            this.frameworkWidth + 35,
+            100
         )
     }
 
