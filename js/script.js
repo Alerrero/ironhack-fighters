@@ -13,6 +13,9 @@ function startGame() {
 }
 
 function restartGame() {
+    document.querySelector('.end-game').style.display = 'none'
+    document.getElementById('start-button').disabled = true
+
     ironhackFighters.restart()
     ironhackFighters.render()
 

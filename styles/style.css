@@ -46,3 +46,7 @@ body {
     right: 50%;
     transform: translate(50%, -50%);
 }
+
+#restart-button:disabled {
+    display: none;
+}

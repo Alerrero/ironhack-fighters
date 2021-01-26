@@ -206,7 +206,7 @@ const ironhackFighters = {
     detectEndGame() {
 
         this.lifeBars.forEach((elm, idx) => {
-            if (this.players[idx].getPlayerHealth() <= 400) {
+            if (this.players[idx].getPlayerHealth() <= 0) {
                 elm.drawFramework()
                 clearInterval(this.intervalID)
                 document.querySelector('.end-game').style.display = 'block'
@@ -225,7 +225,6 @@ const ironhackFighters = {
         this.attackKey = false
         this.validAttack = [false, false]
         this.init('canvas')
-        document.getElementById('start-button').setAttribute('disabled', 'false')
 
 
     },
