@@ -5,6 +5,7 @@
 
 body {
     text-align: center;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .background {
@@ -43,25 +44,11 @@ body {
 .end-game {
     display: none;
     position: absolute;
-    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -100%);
     background-color: rgb(221, 204, 48);
     padding: 30px 70px;
-}
-
-.end-msg {
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
-    font-family: 'Press Start 2P', cursive;
-    background-color: #af8f00;
-    color: white;
-    padding: 20px;
-    border-color: white;
-    border-width: 3px;
 }
 
 #restart-button:disabled {

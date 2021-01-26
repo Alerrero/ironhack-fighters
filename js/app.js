@@ -227,7 +227,12 @@ const ironhackFighters = {
                 elm.drawTopFramework()
                 document.querySelector('.end-game').style.display = 'block'
                 document.getElementById('restart-button').disabled = false
+                if (this.players[0].getPlayerHealth() <= 200) {
+                    document.querySelector('.end-game p').innerText = 'YOU LOSE'
+                } else {
+                    document.querySelector('.end-game p').innerText = 'YOU WIN'
 
+                }
             }
         })
     },
