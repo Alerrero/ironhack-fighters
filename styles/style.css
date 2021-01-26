@@ -20,6 +20,9 @@ body {
 #start-button {
     font-family: 'Press Start 2P', cursive;
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
     padding: 20px;
     background-color: #af8f00;
     color: white;
@@ -40,6 +43,10 @@ body {
 .end-game {
     display: none;
     position: absolute;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
     background-color: rgb(221, 204, 48);
     padding: 30px 70px;
 }
