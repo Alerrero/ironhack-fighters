@@ -5,19 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles/style.css">
 </head>
 
 <body>
+
     <div class='background'>
-        <button id='start-button'>Start Game</button>
-        <canvas id="canvas"></canvas>
-        <div class='end-game'>
-            <p>END GAME</p>
-            <button id='restart-button' disabled>Restart Game</button>
+        <div>
+            <button id='start-button'>StartGame</button>
+            <canvas id="canvas"></canvas>
+            <div class='end-game'>
+                <p>END GAME</p>
+                <button id='restart-button' disabled>Restart Game</button>
+            </div>
+            <footer class="actions">
+                <div class="attacks">
+                    <button class="btn punch">Punch</button>
+                    <button class="btn kick">Kick</button>
+                </div>
+                <div class="movement">
+                    <button class="btn left">Left</button>
+                    <button class="btn right">Right</button>
+                </div>
+            </footer>
         </div>
     </div>
+
     <script src="js/canvasBackground.js"></script>
     <script src="js/player.js"></script>
     <script src="js/NPC.js"></script>
