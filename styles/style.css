@@ -9,7 +9,7 @@ body {
 
 .background {
     background-image: url('../img/bg.jpg');
-    filter: grayscale(.6);
+    filter: grayscale(0);
     background-size: cover;
     height: 100vh;
     display: flex;
@@ -18,9 +18,13 @@ body {
 }
 
 #start-button {
+    font-family: 'Press Start 2P', cursive;
     position: absolute;
     padding: 20px;
-    border-radius: 5px;
+    background-color: #af8f00;
+    color: white;
+    border-color: white;
+    border-width: 3px;
 }
 
 #start-button:disabled {
@@ -38,4 +42,35 @@ body {
     top: 50%;
     right: 50%;
     transform: translate(50%, -50%);
+}
+
+.actions {
+    background-image: url("../buttons/buttons\ background.png");
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center ;
+    height: 139px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #af8f00;
+    color: white;
+    padding: 20px;
+    border-color: white;
+    border-width: 3px;
+}
+
+.attacks, .movement {
+    margin: 20px;
+}
+
+.btn.pushed {
+    background-color: #886f00;
+    border-width: 1px;
+    padding: 15px;
 }

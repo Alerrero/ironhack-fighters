@@ -102,19 +102,27 @@ const ironhackFighters = {
             if (e.key === this.keys.moveRight) {
                 this.players[0].movePlayer('right')
                 this.players[0].setStatus('move')
+                const rightKey = document.querySelector('.right')
+                rightKey.setAttribute('class', 'btn pushed right')
             }
             if (e.key === this.keys.moveLeft) {
                 this.players[0].movePlayer('left')
                 this.players[0].setStatus('move')
+                const rightKey = document.querySelector('.left')
+                rightKey.setAttribute('class', 'btn pushed left')
             }
             if (e.key === this.keys.kick) {
                 this.players[0].setStatus('kick')
                 this.attackKey = true
+                const rightKey = document.querySelector('.kick')
+                rightKey.setAttribute('class', 'btn pushed kick')
 
             }
             if (e.key === this.keys.punch) {
                 this.players[0].setStatus('punch')
                 this.attackKey = true
+                const rightKey = document.querySelector('.punch')
+                rightKey.setAttribute('class', 'btn pushed punch')
 
             }
         }
@@ -124,6 +132,7 @@ const ironhackFighters = {
                 this.attackKey = false
                 this.attackTime = 0
                 this.validAttack[0] = false
+                
             }
             this.players[0].setStatus('rest')
         }
@@ -159,9 +168,9 @@ const ironhackFighters = {
         if (!((this.players[0].getStatus() === 'rest' || this.players[0].getStatus() === 'move') && (this.players[1].getStatus() === 'rest' || this.players[1].getStatus() === 'move'))) {
             
             if (this.players[0].getStatus() != 'rest' && this.players[0].getStatus() != 'move') {
-                borderPlayer1 += 20
+                borderPlayer1 += 52
             } if (this.players[1].getStatus() != 'rest' && this.players[1].getStatus() != 'move') {
-                borderPlayer2 -= 20
+                borderPlayer2 -= 52
             }
         }
         

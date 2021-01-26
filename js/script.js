@@ -9,4 +9,5 @@ function startGame() {
     ironhackFighters.render()
 }
 
+
 ironhackFighters.init('canvas')
