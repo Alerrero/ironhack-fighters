@@ -9,6 +9,7 @@ const ironhackFighters = {
     canvasSize: { w: 900, h: 600 },
     lifeBars: [],
     players: [],
+    canvasBackground: undefined,
     keys: {
         moveLeft: 'ArrowLeft',
         moveRight: 'ArrowRight',
@@ -32,13 +33,16 @@ const ironhackFighters = {
         this.players[0].setPlayerInitialPos()
         this.players[1].setPlayerInitialPos()
         this.createLifeBars()
-        //this.attackPaterns()
+        this.canvasBackground = new canvasBackground(this.ctx, this.canvasSize)
+            //this.attackPaterns()
+
 
     },
 
     render() {
         this.intervalID = setInterval(() => {
             this.clearScreen()
+            this.canvasBackground.drawCanvasBackground(this.frameCount)
             this.lifeBars.forEach((elm, idx) => {
                 elm.drawFramework()
                 elm.setHealthBarWidth(this.players[idx].getPlayerHealth())
@@ -49,8 +53,8 @@ const ironhackFighters = {
             this.setEventListener()
 
             if (this.hasDetectedCollision()) {
-                
-                
+
+
                 if ((this.players[0].getStatus() === 'rest' || this.players[0].getStatus() === 'move') && (this.players[1].getStatus() === 'rest' || this.players[1].getStatus() === 'move')) {
                     this.players[0].movePlayer('left')
                     this.players[1].movePlayer('right')
@@ -60,9 +64,9 @@ const ironhackFighters = {
                 this.attackTime = 0
             }
             this.frameCount++
-            if (this.frameCount % 60 === 0) {
-                this.players[1].attackPattern()
-            }
+                if (this.frameCount % 60 === 0) {
+                    this.players[1].attackPattern()
+                }
             this.frameCount === 6000 ? this.frameCount = 0 : null
             this.detectEndGame()
         }, 1000 / 60)
@@ -120,7 +124,7 @@ const ironhackFighters = {
         }
         document.onkeyup = e => {
             if (e.key === this.keys.kick || e.key === this.keys.punch) {
-                
+
                 this.attackKey = false
                 this.attackTime = 0
                 this.validAttack[0] = false
@@ -136,7 +140,7 @@ const ironhackFighters = {
 
     createPlayers() {
         this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'player1'))
-        
+
     },
 
     createNPC() {
@@ -150,27 +154,28 @@ const ironhackFighters = {
     },
 
     hasDetectedCollision() {
-        
+
         let borderPlayer1 = this.players[0].getRealBorder()
         let borderPlayer2 = this.players[1].getRealBorder()
 
 
 
         if (!((this.players[0].getStatus() === 'rest' || this.players[0].getStatus() === 'move') && (this.players[1].getStatus() === 'rest' || this.players[1].getStatus() === 'move'))) {
-            
+
             if (this.players[0].getStatus() != 'rest' && this.players[0].getStatus() != 'move') {
                 borderPlayer1 += 20
-            } if (this.players[1].getStatus() != 'rest' && this.players[1].getStatus() != 'move') {
+            }
+            if (this.players[1].getStatus() != 'rest' && this.players[1].getStatus() != 'move') {
                 borderPlayer2 -= 20
             }
         }
-        
+
         return borderPlayer1 >= borderPlayer2
     },
 
     playersAttack() {
-            this.players[0].playerAttack(this.players[1], this.validAttack[0])
-            this.players[1].playerAttack(this.players[0], this.validAttack[1])
+        this.players[0].playerAttack(this.players[1], this.validAttack[0])
+        this.players[1].playerAttack(this.players[0], this.validAttack[1])
     },
 
 
@@ -199,18 +204,18 @@ const ironhackFighters = {
     // },
 
     detectEndGame() {
-       
-        this.lifeBars.forEach ((elm,idx) => {
-            if (this.players[idx].getPlayerHealth() <= 0 ) {
-                elm.drawFramework()
-                clearInterval(this.intervalID)
-                const endMsg = document.createElement('div')
-                endMsg.setAttribute('class', 'end-msg')
-                endMsg.textContent = 'END GAME'
-                document.querySelector('.background').appendChild(endMsg)
-        }
-        })
-                //this.restart()    
+
+        this.lifeBars.forEach((elm, idx) => {
+                if (this.players[idx].getPlayerHealth() <= 0) {
+                    elm.drawFramework()
+                    clearInterval(this.intervalID)
+                    const endMsg = document.createElement('div')
+                    endMsg.setAttribute('class', 'end-msg')
+                    endMsg.textContent = 'END GAME'
+                    document.querySelector('.background').appendChild(endMsg)
+                }
+            })
+            //this.restart()    
     },
 
     restart() {
