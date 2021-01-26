@@ -9,7 +9,7 @@ class Player {
             x: this.playerType === 'player1' ? 80 : 500,
             y: 350
         }
-        this.health = 330
+        this.health = 300
         this.status = 'rest'
         this.playerValidAttack = false
 
@@ -88,7 +88,7 @@ class Player {
     }
 
     receiveDamage(attackType) {
-        attackType === 'kick' ? this.health -= 10 : this.health -= 5
+        attackType === 'kick' ? this.health -= 25 : this.health -= 15
     }
 
     hasPlayerReachBorder(direction) {
