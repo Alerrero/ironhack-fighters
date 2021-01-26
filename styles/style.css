@@ -33,6 +33,13 @@ body {
     background-color: gray;
 }
 
+.end-game {
+    display: none;
+    position: absolute;
+    background-color: rgb(221, 204, 48);
+    padding: 30px 70px;
+}
+
 .end-msg {
     position: absolute;
     top: 50%;
