@@ -206,16 +206,14 @@ const ironhackFighters = {
     detectEndGame() {
 
         this.lifeBars.forEach((elm, idx) => {
-                if (this.players[idx].getPlayerHealth() <= 0) {
-                    elm.drawFramework()
-                    clearInterval(this.intervalID)
-                    const endMsg = document.createElement('div')
-                    endMsg.setAttribute('class', 'end-msg')
-                    endMsg.textContent = 'END GAME'
-                    document.querySelector('.background').appendChild(endMsg)
-                }
-            })
-            //this.restart()    
+            if (this.players[idx].getPlayerHealth() <= 0) {
+                elm.drawFramework()
+                clearInterval(this.intervalID)
+                document.querySelector('.end-game').style.display = 'block'
+                document.getElementById('restart-button').disabled = false
+
+            }
+        })
     },
 
     restart() {
@@ -227,7 +225,7 @@ const ironhackFighters = {
         this.attackKey = false
         this.validAttack = [false, false]
         this.init('canvas')
-        document.getElementById('start-button').setAttribute('disabled', 'false')
+
 
     },
 
