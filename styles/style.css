@@ -56,6 +56,12 @@ body {
     top: 50%;
     right: 50%;
     transform: translate(50%, -50%);
+    font-family: 'Press Start 2P', cursive;
+    background-color: #af8f00;
+    color: white;
+    padding: 20px;
+    border-color: white;
+    border-width: 3px;
 }
 
 #restart-button:disabled {
@@ -81,6 +87,16 @@ body {
     padding: 20px;
     border-color: white;
     border-width: 3px;
+}
+
+.end-game button {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #af8f00;
+    color: white;
+    padding: 20px;
+    border-color: white;
+    border-width: 3px;
+    margin-top: 20px
 }
 
 .movement img {

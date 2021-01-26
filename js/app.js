@@ -221,7 +221,7 @@ const ironhackFighters = {
     detectEndGame() {
 
         this.lifeBars.forEach((elm, idx) => {
-            if (this.players[idx].getPlayerHealth() <= 0) {
+            if (this.players[idx].getPlayerHealth() <= 200) {
                 elm.drawBottomFramework()
                 clearInterval(this.intervalID)
                 elm.drawTopFramework()
