@@ -16,6 +16,7 @@ const ironhackFighters = {
         punch: 'a',
         kick: 'd'
     },
+    documentKeys: [document.querySelector('.left'), document.querySelector('.right'), document.querySelector('.punch'), document.querySelector('.kick')],
     intervalID: undefined,
     keydown: false,
     attackTime: 0,
@@ -107,38 +108,42 @@ const ironhackFighters = {
                 this.players[0].movePlayer('right')
                 this.players[0].setStatus('move')
                 const rightKey = document.querySelector('.right')
-                rightKey.setAttribute('class', 'btn pushed right')
+                rightKey.classList.add('pushed')
             }
             if (e.key === this.keys.moveLeft) {
                 this.players[0].movePlayer('left')
                 this.players[0].setStatus('move')
-                const rightKey = document.querySelector('.left')
-                rightKey.setAttribute('class', 'btn pushed left')
+                const leftKey = document.querySelector('.left')
+                leftKey.classList.add('pushed')
+
             }
             if (e.key === this.keys.kick) {
                 this.players[0].setStatus('kick')
                 this.attackKey = true
-                const rightKey = document.querySelector('.kick')
-                rightKey.setAttribute('class', 'btn pushed kick')
+                const kickKey = document.querySelector('.kick')
+                kickKey.classList.add('pushed')
+
 
             }
             if (e.key === this.keys.punch) {
                 this.players[0].setStatus('punch')
                 this.attackKey = true
-                const rightKey = document.querySelector('.punch')
-                rightKey.setAttribute('class', 'btn pushed punch')
+                const punchKey = document.querySelector('.punch')
+                punchKey.classList.add('pushed')
+
 
             }
         }
         document.onkeyup = e => {
             if (e.key === this.keys.kick || e.key === this.keys.punch) {
-
                 this.attackKey = false
                 this.attackTime = 0
                 this.validAttack[0] = false
-
             }
             this.players[0].setStatus('rest')
+            this.documentKeys.forEach(elm => {
+                elm.classList.remove('pushed')
+            })
         }
 
     },
