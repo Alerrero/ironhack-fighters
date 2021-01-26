@@ -122,6 +122,9 @@ const ironhackFighters = {
                 this.players[0].setStatus('kick')
                 this.attackKey = true
                 const kickKey = document.querySelector('.kick')
+                const audio = document.querySelector("#audio-kick");
+                audio.play();
+                audio.volume= 0.7; 
                 kickKey.classList.add('pushed')
 
 
@@ -130,6 +133,9 @@ const ironhackFighters = {
                 this.players[0].setStatus('punch')
                 this.attackKey = true
                 const punchKey = document.querySelector('.punch')
+                const audio = document.querySelector("#audio-punch");
+                audio.play();
+                audio.volume= 0.7;  
                 punchKey.classList.add('pushed')
 
 
