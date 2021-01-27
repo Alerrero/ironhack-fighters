@@ -1,5 +1,5 @@
 class Player {
-    constructor(ctx, canvasSize, playerType, imageName) {
+    constructor(ctx, canvasSize, playerType, imageName, character) {
         this.ctx = ctx
         this.canvasSize = canvasSize
         this.playerType = playerType
@@ -14,24 +14,28 @@ class Player {
         this.playerValidAttack = false
 
         this.imageInstanceRun = new Image()
-        this.imageInstanceRun.src = `animation/${this.imageName}Run.png`
+        //this.imageInstanceRun.src = `animation/${this.imageName}Run.png`
         this.imageInstanceRun.frames = 6
         this.imageInstanceRun.framesIndex = 0
 
         this.imageInstancePunch = new Image()
-        this.imageInstancePunch.src = `animation/${this.imageName}Punch.png`
+        //this.imageInstancePunch.src = `animation/${this.imageName}Punch.png`
         this.imageInstancePunch.frames = 5
         this.imageInstancePunch.framesIndex = 0
 
         this.imageInstanceKick = new Image()
-        this.imageInstanceKick.src = `animation/${this.imageName}Kick.png`
+        //this.imageInstanceKick.src = `animation/${this.imageName}Kick.png`
         this.imageInstanceKick.frames = 6
         this.imageInstanceKick.framesIndex = 0
 
         this.imageInstanceRest = new Image()
-        this.imageInstanceRest.src = `animation/${this.imageName}Rest.png`
+        //this.imageInstanceRest.src = `animation/${this.imageName}Rest.png`
         this.imageInstanceRest.frames = 4
         this.imageInstanceRest.framesIndex = 0
+        
+        this.imageInstance = new Image ()
+        this.characters = []
+        this.character = character
 
         this.audioKick = document.querySelector("#audio-kick")
         this.audioKick.volume = 0.7
@@ -39,6 +43,15 @@ class Player {
         this.audioPunch.volume = 0.7
 
 
+    }
+
+    selectCharacter(){
+        this.imageInstanceRun.src = `animation/${this.playerType}${this.character}Run.png`
+        this.imageInstanceKick.src = `animation/${this.playerType}${this.character}Kick.png`
+        this.imageInstancePunch.src = `animation/${this.playerType}${this.character}Punch.png`
+        this.imageInstanceRest.src = `animation/${this.playerType}${this.character}Rest.png`
+        
+          
     }
 
     movePlayer(direction) {
@@ -60,7 +73,6 @@ class Player {
                 break;
 
             case 'punch':
-                console.log(this.status)
                 instance = this.imageInstancePunch
                 break;
 

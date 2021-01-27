@@ -30,6 +30,7 @@ const ironhackFighters = {
         this.setDimensions()
         this.createPlayers()
         this.createNPC()
+        this.players.forEach(elm => elm.selectCharacter())
         this.players[1].createPattern()
         this.players[0].setPlayerInitialPos()
         this.players[1].setPlayerInitialPos()
@@ -121,12 +122,12 @@ const ironhackFighters = {
     },
 
     createPlayers() {
-        this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'player1'))
+        this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'player1', 'Green'))
 
     },
 
     createNPC() {
-        this.players.push(new NPC(this.ctx, this.canvasSize, 'player2', 'player2'))
+        this.players.push(new NPC(this.ctx, this.canvasSize, 'player2', 'player2', 'Red'))
     },
 
 
