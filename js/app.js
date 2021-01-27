@@ -9,7 +9,7 @@ const ironhackFighters = {
     canvasSize: { w: 900, h: 600 },
     lifeBars: [],
     players: [],
-    player1Character: 'Green',
+    player1Character: 'Red',
     canvasBackground: undefined,
     keys: {
         moveLeft: 'ArrowLeft',
@@ -23,7 +23,7 @@ const ironhackFighters = {
     attackTime: 0,
     validAttack: [false, false],
     frameCount: 0,
-    characters: ['Green', 'Red', 'Warrior'],
+    characters: ['Wizard', 'Red', 'Warrior'],
 
     init(canvasID) {
         this.canvasDom = document.getElementById(`${canvasID}`)
@@ -211,9 +211,9 @@ window.onload = () => {
     document.getElementById('restart-button').onclick = () => {
         restartGame();
     };
-    document.getElementById('Green').onclick = function() {
+    document.getElementById('Wizard').onclick = function() {
         document.querySelector('.character-selection').style.display = 'none'
-        ironhackFighters.setPlayer1Character('Green')
+        ironhackFighters.setPlayer1Character('Wizard')
     };
     document.getElementById('Red').onclick = function() {
         document.querySelector('.character-selection').style.display = 'none'
