@@ -1,9 +1,8 @@
 class Player {
-    constructor(ctx, canvasSize, playerType, imageName, character) {
+    constructor(ctx, canvasSize, playerType, character) {
         this.ctx = ctx
         this.canvasSize = canvasSize
         this.playerType = playerType
-        this.imageName = imageName
         this.playerSize = { w: 200, h: 134 }
         this.playerPos = {
             x: this.playerType === 'player1' ? 80 : 500,

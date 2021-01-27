@@ -1,7 +1,7 @@
 class NPC extends Player {
-    constructor(ctx, canvasSize, playerType, imageName, character) {
+    constructor(ctx, canvasSize, playerType, character) {
 
-        super(ctx, canvasSize, playerType, imageName,character)
+        super(ctx, canvasSize, playerType, character)
         this.attackActions = []
         this.attackActionsIndex = 0
 
