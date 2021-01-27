@@ -168,7 +168,5 @@ class Player {
     setPlayerInitialPos() {
         this.playerType === 'player1' ? this.playerPos.x = 10 : this.playerPos.x = this.canvasSize.w - 100 - this.playerSize.w
     }
-    getCharacter() {
-        return this.character
-    }
+  
 }
