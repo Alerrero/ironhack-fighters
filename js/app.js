@@ -17,7 +17,7 @@ const ironhackFighters = {
         punch: 'a',
         kick: 'd'
     },
-    documentKeys: [document.querySelector('.left'), document.querySelector('.right'), document.querySelector('.punch'), document.querySelector('.kick')],
+    documentKeys: document.querySelectorAll('.left, .right, .punch, .kick'),
     intervalID: undefined,
     keydown: false,
     attackTime: 0,
