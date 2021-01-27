@@ -133,12 +133,9 @@ const ironhackFighters = {
 
     createPlayers() {
         this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'player1', this.player1Character))
-
     },
 
     createNPC() {
-        //const player1Character = this.players[0].getCharacter()
-        //const player1Index = this.players.indexOf(player1Character)
         const availableCharacters = this.characters.filter(elm => elm != this.player1Character)
         const player2Character = availableCharacters[Math.floor(Math.random()*(availableCharacters.length))]  
         this.players.push(new NPC(this.ctx, this.canvasSize, 'player2', 'player2', player2Character))
@@ -193,12 +190,7 @@ const ironhackFighters = {
                 clearInterval(this.intervalID)
                 document.querySelector('.end-game').style.display = 'block'
                 document.getElementById('restart-button').disabled = false
-                if (this.players[0].getPlayerHealth() <= 0) {
-                    document.querySelector('.end-game p').innerText = 'YOU LOSE'
-                } else {
-                    document.querySelector('.end-game p').innerText = 'YOU WIN'
-
-                }
+                document.querySelector('.end-game p').innerText = this.players[0].getPlayerHealth() <= 0 ? 'YOU LOSE' : 'YOU WIN'
             }
         })
     },
