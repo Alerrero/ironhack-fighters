@@ -9,6 +9,7 @@ const ironhackFighters = {
     canvasSize: { w: 900, h: 600 },
     lifeBars: [],
     players: [],
+    player1Character: 'Green',
     canvasBackground: undefined,
     keys: {
         moveLeft: 'ArrowLeft',
@@ -122,15 +123,23 @@ const ironhackFighters = {
 
     },
 
+    setPlayer1Character(character){
+        this.player1Character = character
+
+
+    },
+
+
+
     createPlayers() {
-        this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'player1', 'Green'))
+        this.players.push(new Player(this.ctx, this.canvasSize, 'player1', 'player1', this.player1Character))
 
     },
 
     createNPC() {
-        const player1Character = this.players[0].getCharacter()
+        //const player1Character = this.players[0].getCharacter()
         //const player1Index = this.players.indexOf(player1Character)
-        const availableCharacters = this.characters.filter(elm => elm != player1Character)
+        const availableCharacters = this.characters.filter(elm => elm != this.player1Character)
         const player2Character = availableCharacters[Math.floor(Math.random()*(availableCharacters.length))]  
         this.players.push(new NPC(this.ctx, this.canvasSize, 'player2', 'player2', player2Character))
     },

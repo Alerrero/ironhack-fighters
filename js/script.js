@@ -11,6 +11,15 @@ window.onload = () => {
     document.getElementById('restart-button').onclick = () => {
         restartGame();
     };
+    document.getElementById('Green').onclick = function() {
+        document.querySelector('.character-selection').style.display = 'none'
+        ironhackFighters.setPlayer1Character('Green')
+    };
+    document.getElementById('Red').onclick = function() {
+        document.querySelector('.character-selection').style.display = 'none'
+        ironhackFighters.setPlayer1Character('Red')
+    }
+
 }
 
 function startGame() {
