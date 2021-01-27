@@ -217,9 +217,9 @@ const ironhackFighters = {
 window.onload = () => {
     document.getElementById('start-button').onclick = function() {
         document.getElementById('start-button').disabled = true
-        const audio = document.querySelector("#audio-pelea1");
+        const audio = document.querySelector("#audio-fight");
         audio.play();
-        audio.volume= 0.2;  
+        audio.volume= 0.1;  
         startGame()
         };
 
