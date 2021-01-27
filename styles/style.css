@@ -18,6 +18,20 @@ body {
     align-items: center;
 }
 
+li button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+button img {
+    width: 100px;
+    margin-bottom: 15px;
+}
+
+
+
 #start-button {
     font-family: 'Press Start 2P', cursive;
     position: absolute;
@@ -125,7 +139,7 @@ body {
 }
 .character-selection{
     position: absolute;
-    top:300px;
+    top:250px;
     width: 900px;
 }
 .character-selection ul{
