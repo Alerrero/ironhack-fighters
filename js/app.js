@@ -23,6 +23,7 @@ const ironhackFighters = {
     attackKey: false,
     validAttack: [false, false],
     frameCount: 0,
+    characters: ['Green', 'Red'],
 
     init(canvasID) {
         this.canvasDom = document.getElementById(`${canvasID}`)
@@ -127,7 +128,11 @@ const ironhackFighters = {
     },
 
     createNPC() {
-        this.players.push(new NPC(this.ctx, this.canvasSize, 'player2', 'player2', 'Red'))
+        const player1Character = this.players[0].getCharacter()
+        //const player1Index = this.players.indexOf(player1Character)
+        const availableCharacters = this.characters.filter(elm => elm != player1Character)
+        const player2Character = availableCharacters[Math.floor(Math.random()*(availableCharacters.length))]  
+        this.players.push(new NPC(this.ctx, this.canvasSize, 'player2', 'player2', player2Character))
     },
 
 
