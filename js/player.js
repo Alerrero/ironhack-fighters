@@ -33,6 +33,11 @@ class Player {
         this.imageInstanceRest.frames = 4
         this.imageInstanceRest.framesIndex = 0
 
+        this.audioKick = document.querySelector("#audio-kick")
+        this.audioKick.volume = 0.7
+        this.audioPunch= document.querySelector("#audio-punch")
+        this.audioPunch.volume = 0.7
+
 
     }
 
@@ -101,6 +106,8 @@ class Player {
         if (!this.playerValidAttack) {
             if (this.getStatus() != 'rest' && this.getStatus() != 'move' && !validAttack) {
                 playerObj.receiveDamage(this.getStatus())
+                if(this.status === 'punch'){this.audioPunch.play()}
+                else {this.audioKick.play()}
                 this.playerValidAttack = true
                 if (this.playerType === 'player1') {
                     for (let i = 0; i < 3; i++) {

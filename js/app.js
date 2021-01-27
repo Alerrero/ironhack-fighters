@@ -47,25 +47,17 @@ const ironhackFighters = {
             this.drawAll()
            
             if (this.hasDetectedCollision()) {
-
-
-                if ((this.players[0].getStatus() === 'rest' || this.players[0].getStatus() === 'move') && (this.players[1].getStatus() === 'rest' || this.players[1].getStatus() === 'move')) {
-                    this.players[0].movePlayer('left')
-                    this.players[1].movePlayer('right')
-                } else {
-                    this.playersAttack()
-                }
-                this.attackTime = 0
+                this.manageCollision()              
             }
             this.frameCount++
-                if (this.frameCount % 60 === 0) {
-                    this.players[1].attackPattern()
-                }
+            if (this.frameCount % 60 === 0) {
+                this.players[1].attackPattern()
+            }
             this.frameCount === 6000 ? this.frameCount = 0 : null
             this.detectEndGame()
         }, 1000 / 60)
-
     },
+    
 
     setDimensions() {
         this.canvasDom.width = this.canvasSize.w
@@ -92,9 +84,6 @@ const ironhackFighters = {
                 this.players[0].setStatus('kick')
                 this.attackKey = true
                 const kickKey = document.querySelector('.kick')
-                const audio = document.querySelector("#audio-kick");
-                audio.play();
-                audio.volume= 0.7; 
                 kickKey.classList.add('pushed')
 
 
@@ -102,10 +91,7 @@ const ironhackFighters = {
             if (e.key === this.keys.punch) {
                 this.players[0].setStatus('punch')
                 this.attackKey = true
-                const punchKey = document.querySelector('.punch')
-                const audio = document.querySelector("#audio-punch");
-                audio.play();
-                audio.volume= 0.7;  
+                const punchKey = document.querySelector('.punch')                             
                 punchKey.classList.add('pushed')
 
 
@@ -172,6 +158,15 @@ const ironhackFighters = {
         }
 
         return borderPlayer1 >= borderPlayer2
+    },
+    manageCollision(){
+        if ((this.players[0].getStatus() === 'rest' || this.players[0].getStatus() === 'move') && (this.players[1].getStatus() === 'rest' || this.players[1].getStatus() === 'move')) {
+            this.players[0].movePlayer('left')
+            this.players[1].movePlayer('right')
+        } else {
+            this.playersAttack()
+        }
+        this.attackTime = 0
     },
 
     playersAttack() {
