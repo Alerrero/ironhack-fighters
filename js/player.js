@@ -60,6 +60,12 @@ class Player {
         }
     }
 
+    pushPlayer(direction){
+        if (!this.hasPlayerReachBorder(direction)) {
+            direction === 'right' ? this.playerPos.x += 30 : this.playerPos.x -= 30
+        }
+    }
+
     drawPlayer(frames) {
         let instance
 
@@ -109,30 +115,22 @@ class Player {
     }
 
     hasPlayerReachBorder(direction) {
-        if (direction === 'right') {
-            return (this.playerPos.x + 10 + this.playerSize.w > this.canvasSize.w)
-        } else { return this.playerPos.x - 5 <= 0 }
+        return direction === 'right' ? this.playerPos.x + 10 + this.playerSize.w > this.canvasSize.w : this.playerPos.x - 5 <= 0
     }
 
-    playerAttack(playerObj, validAttack) {
-        if (!this.playerValidAttack) {
-            if (this.getStatus() != 'rest' && this.getStatus() != 'move' && !validAttack) {
-                playerObj.receiveDamage(this.getStatus())
-                if(this.status === 'punch'){this.audioPunch.play()}
-                else {this.audioKick.play()}
+    playerAttack(playerObj, validAttack) { 
+        
+            if (!this.playerValidAttack&&this.status != 'rest' && this.status != 'move' && !validAttack) {
+
+                playerObj.receiveDamage(this.status)
                 this.playerValidAttack = true
-                if (this.playerType === 'player1') {
-                    for (let i = 0; i < 3; i++) {
-                        playerObj.movePlayer('right')
-                    }
-                } else {
-                    for (let i = 0; i < 3; i++) {
-                        playerObj.movePlayer('left')
-                    }
-                }
+
+                this.status==='punch' ? this.audioPunch.play() : this.audioKick.play()
+               
+                this.playerType === 'player1' ? playerObj.pushPlayer('right') : playerObj.pushPlayer('left')
                 setTimeout(() => this.playerValidAttack = false, 1000)
             }
-        }
+        
     }
 
     getPlayerType() {
