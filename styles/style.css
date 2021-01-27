@@ -103,8 +103,14 @@ body {
 .btn.punch {
     background-color: rgb(255, 0, 0)
 }
+.btn.punch.pushed {
+    background-color: rgb(255, 0, 0)
+}
 
 .btn.kick {
+    background-color: rgb(0, 0, 255)
+}
+.btn.kick.pushed {
     background-color: rgb(0, 0, 255)
 }
 
