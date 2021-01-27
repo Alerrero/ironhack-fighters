@@ -43,7 +43,7 @@ class Player {
 
     movePlayer(direction) {
         if (!this.hasPlayerReachBorder(direction)) {
-            direction === 'right' ? this.playerPos.x += 5 : this.playerPos.x -= 5
+            direction === 'right' ? this.playerPos.x += 10 : this.playerPos.x -= 10
         }
     }
 
@@ -157,7 +157,6 @@ class Player {
     }
 
     setPlayerInitialPos() {
-        // this.playerType === 'player1' ? this.playerPos.x = 10 : this.playerPos.x = this.canvasSize.w - 10 - this.playerSize.w
         this.playerType === 'player1' ? this.playerPos.x = 10 : this.playerPos.x = this.canvasSize.w - 100 - this.playerSize.w
     }
 }

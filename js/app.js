@@ -78,23 +78,18 @@ const ironhackFighters = {
                 this.players[0].setStatus('move')
                 const leftKey = document.querySelector('.left')
                 leftKey.classList.add('pushed')
-
             }
             if (e.key === this.keys.kick) {
                 this.players[0].setStatus('kick')
                 this.attackKey = true
                 const kickKey = document.querySelector('.kick')
                 kickKey.classList.add('pushed')
-
-
             }
             if (e.key === this.keys.punch) {
                 this.players[0].setStatus('punch')
                 this.attackKey = true
                 const punchKey = document.querySelector('.punch')                             
                 punchKey.classList.add('pushed')
-
-
             }
         }
         document.onkeyup = e => {
