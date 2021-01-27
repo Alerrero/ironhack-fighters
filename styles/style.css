@@ -25,7 +25,7 @@ li button {
 }
 
 
-button img {
+.character-selection button img {
     width: 100px;
     margin-bottom: 15px;
 }
@@ -35,7 +35,7 @@ button img {
 #start-button {
     font-family: 'Press Start 2P', cursive;
     position: absolute;
-    top: 60%;
+    top: 70vh;
     left: 50%;
     transform: translate(-50%, -100%);
     padding: 20px;
@@ -139,7 +139,7 @@ button img {
 }
 .character-selection{
     position: absolute;
-    top:250px;
+    top:25vh;
     width: 900px;
 }
 .character-selection ul{
