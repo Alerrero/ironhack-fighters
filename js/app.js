@@ -21,7 +21,6 @@ const ironhackFighters = {
     intervalID: undefined,
     keydown: false,
     attackTime: 0,
-    attackKey: false,
     validAttack: [false, false],
     frameCount: 0,
     characters: ['Green', 'Red', 'Warrior'],
@@ -32,16 +31,12 @@ const ironhackFighters = {
         this.setDimensions()
         this.createPlayers()
         this.createNPC()
-        this.players.forEach(elm => elm.selectCharacter())
         this.players[1].createPattern()
         this.players[0].setPlayerInitialPos()
         this.players[1].setPlayerInitialPos()
         this.createLifeBars()
         this.canvasBackground = new canvasBackground(this.ctx, this.canvasSize)
         this.setEventListener()
-        
-
-
     },
 
     render() {
@@ -73,38 +68,34 @@ const ironhackFighters = {
             if (e.key === this.keys.moveRight) {
                 this.players[0].movePlayer('right')
                 this.players[0].setStatus('move')
-                const rightKey = document.querySelector('.right')
-                rightKey.classList.add('pushed')
+                this.documentKeys[3].classList.add('pushed')
             }
+
             if (e.key === this.keys.moveLeft) {
                 this.players[0].movePlayer('left')
                 this.players[0].setStatus('move')
-                const leftKey = document.querySelector('.left')
-                leftKey.classList.add('pushed')
+                this.documentKeys[2].classList.add('pushed')
             }
+
             if (e.key === this.keys.kick) {
                 this.players[0].setStatus('kick')
-                this.attackKey = true
-                const kickKey = document.querySelector('.kick')
-                kickKey.classList.add('pushed')
+                this.documentKeys[1].classList.add('pushed')
+                console.log({e})
+
             }
             if (e.key === this.keys.punch) {
                 this.players[0].setStatus('punch')
-                this.attackKey = true
-                const punchKey = document.querySelector('.punch')                             
-                punchKey.classList.add('pushed')
+                this.documentKeys[0].classList.add('pushed')
             }
         }
         document.onkeyup = e => {
             if (e.key === this.keys.kick || e.key === this.keys.punch) {
-                this.attackKey = false
                 this.attackTime = 0
                 this.validAttack[0] = false
             }
             this.players[0].setStatus('rest')
-            this.documentKeys.forEach(elm => {
-                elm.classList.remove('pushed')
-            })
+            this.documentKeys.forEach(elm => elm.classList.remove('pushed')
+            )
         }
 
     },
@@ -125,11 +116,7 @@ const ironhackFighters = {
 
     setPlayer1Character(character){
         this.player1Character = character
-
-
     },
-
-
 
     createPlayers() {
         this.players.push(new Player(this.ctx, this.canvasSize, 'player1', this.player1Character))
@@ -148,11 +135,8 @@ const ironhackFighters = {
     },
 
     hasDetectedCollision() {
-
         let borderPlayer1 = this.players[0].getRealBorder()
         let borderPlayer2 = this.players[1].getRealBorder()
-
-
 
         if (!((this.players[0].getStatus() === 'rest' || this.players[0].getStatus() === 'move') && (this.players[1].getStatus() === 'rest' || this.players[1].getStatus() === 'move'))) {
 
@@ -165,6 +149,7 @@ const ironhackFighters = {
         }
 
         return borderPlayer1 >= borderPlayer2
+        
     },
     manageCollision(){
         if ((this.players[0].getStatus() === 'rest' || this.players[0].getStatus() === 'move') && (this.players[1].getStatus() === 'rest' || this.players[1].getStatus() === 'move')) {
@@ -201,7 +186,6 @@ const ironhackFighters = {
         this.intervalID = undefined
         this.keydown = false
         this.attackTime = 0
-        this.attackKey = false
         this.validAttack = [false, false]
         this.init('canvas')
 

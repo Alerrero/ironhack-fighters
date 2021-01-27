@@ -12,27 +12,15 @@ class Player {
         this.status = 'rest'
         this.playerValidAttack = false
 
-        this.imageInstanceRun = new Image()
-        //this.imageInstanceRun.src = `animation/${this.imageName}Run.png`
-        this.imageInstanceRun.frames = 6
-        this.imageInstanceRun.framesIndex = 0
+        this.images = [
+            {name: 'move', frames:6},
+            {name: 'punch', frames:5},
+            {name: 'kick', frames:6},
+            {name: 'rest', frames:4}
+        ]
 
-        this.imageInstancePunch = new Image()
-        //this.imageInstancePunch.src = `animation/${this.imageName}Punch.png`
-        this.imageInstancePunch.frames = 5
-        this.imageInstancePunch.framesIndex = 0
-
-        this.imageInstanceKick = new Image()
-        //this.imageInstanceKick.src = `animation/${this.imageName}Kick.png`
-        this.imageInstanceKick.frames = 6
-        this.imageInstanceKick.framesIndex = 0
-
-        this.imageInstanceRest = new Image()
-        //this.imageInstanceRest.src = `animation/${this.imageName}Rest.png`
-        this.imageInstanceRest.frames = 4
-        this.imageInstanceRest.framesIndex = 0
-        
         this.imageInstance = new Image ()
+        this.imageInstance.framesIndex = 0
         this.characters = []
         this.character = character
 
@@ -40,18 +28,8 @@ class Player {
         this.audioKick.volume = 0.7
         this.audioPunch= document.querySelector("#audio-punch")
         this.audioPunch.volume = 0.7
-
-
     }
 
-    selectCharacter(){
-        this.imageInstanceRun.src = `animation/${this.playerType}${this.character}Run.png`
-        this.imageInstanceKick.src = `animation/${this.playerType}${this.character}Kick.png`
-        this.imageInstancePunch.src = `animation/${this.playerType}${this.character}Punch.png`
-        this.imageInstanceRest.src = `animation/${this.playerType}${this.character}Rest.png`
-        
-          
-    }
 
     movePlayer(direction) {
         if (!this.hasPlayerReachBorder(direction)) {
@@ -66,46 +44,36 @@ class Player {
     }
 
     drawPlayer(frames) {
-        let instance
+        
+        this.imageInstance.src = `animation/${this.playerType}${this.character}${this.status.charAt(0).toUpperCase()+this.status.slice(1)}.png`
 
-        switch (this.status) {
-            case 'rest':
-                instance = this.imageInstanceRest
-                break;
+        //TODO: preguntar Teo
+        //const wantedObj = this.images.find(elm=>elm.name===this.status)
 
-            case 'move':
-                instance = this.imageInstanceRun
-                break;
+        this.imageInstance.frames = this.images.find(elm=>elm.name===this.status).frames
 
-            case 'punch':
-                instance = this.imageInstancePunch
-                break;
-
-            default:
-                instance = this.imageInstanceKick
-                break;
-        }
         this.ctx.drawImage(
-            instance,
-            instance.framesIndex * Math.floor(instance.width / instance.frames),
+            this.imageInstance,
+            this.imageInstance.framesIndex * Math.floor(this.imageInstance.width / this.imageInstance.frames),
             0,
-            Math.floor(instance.width / instance.frames),
-            instance.height,
+            Math.floor(this.imageInstance.width / this.imageInstance.frames),
+            this.imageInstance.height,
             this.playerPos.x,
             this.playerPos.y,
             this.playerSize.w,
             this.playerSize.h
         )
-        this.animate(frames, instance)
+
+        this.animate(frames)
 
     }
 
-    animate(frames, instance) {
+    animate(frames) {
         if (frames % 5 == 0) {
-            instance.framesIndex++;
+            this.imageInstance.framesIndex++;
         }
-        if (instance.framesIndex > instance.frames - 1) {
-            instance.framesIndex = 0
+        if (this.imageInstance.framesIndex > this.imageInstance.frames - 1) {
+            this.imageInstance.framesIndex = 0
         }
     }
 
