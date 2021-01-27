@@ -24,7 +24,7 @@ const ironhackFighters = {
     attackKey: false,
     validAttack: [false, false],
     frameCount: 0,
-    characters: ['Green', 'Red'],
+    characters: ['Green', 'Red', 'Warrior'],
 
     init(canvasID) {
         this.canvasDom = document.getElementById(`${canvasID}`)
@@ -242,6 +242,10 @@ window.onload = () => {
     document.getElementById('Red').onclick = function() {
         document.querySelector('.character-selection').style.display = 'none'
         ironhackFighters.setPlayer1Character('Red')
+    }
+    document.getElementById('Warrior').onclick = function() {
+        document.querySelector('.character-selection').style.display = 'none'
+        ironhackFighters.setPlayer1Character('Warrior')
     }
 
 }
