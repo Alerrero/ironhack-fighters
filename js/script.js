@@ -5,10 +5,7 @@ window.onload = () => {
         audio.play();
         audio.volume= 0.2;  
         startGame()
-       
-        
- 
-       };
+        };
 
     
     document.getElementById('restart-button').onclick = () => {

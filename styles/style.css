@@ -61,7 +61,7 @@ body {
     background-position-x: center;
     background-position-y: center;
     height: 139px;
-    padding: 20px;
+    padding:0px;
     display: flex;
     justify-content: space-around;
     align-items: center;

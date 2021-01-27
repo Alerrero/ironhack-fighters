@@ -229,8 +229,8 @@ const ironhackFighters = {
         this.lifeBars.forEach((elm, idx) => {
             if (this.players[idx].getPlayerHealth() <= 0) {
                 elm.drawBottomFramework()
-                clearInterval(this.intervalID)
                 elm.drawTopFramework()
+                clearInterval(this.intervalID)
                 document.querySelector('.end-game').style.display = 'block'
                 document.getElementById('restart-button').disabled = false
                 if (this.players[0].getPlayerHealth() <= 0) {
