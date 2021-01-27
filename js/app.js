@@ -35,7 +35,8 @@ const ironhackFighters = {
         this.players[1].setPlayerInitialPos()
         this.createLifeBars()
         this.canvasBackground = new canvasBackground(this.ctx, this.canvasSize)
-            //this.attackPaterns()
+        this.setEventListener()
+        
 
 
     },
@@ -43,17 +44,8 @@ const ironhackFighters = {
     render() {
         this.intervalID = setInterval(() => {
             this.clearScreen()
-            this.canvasBackground.drawCanvasBackground(this.frameCount)
-            this.lifeBars.forEach((elm, idx) => {
-                elm.drawBottomFramework()
-                elm.setHealthBarWidth(this.players[idx].getPlayerHealth())
-                elm.setHealthBarPos()
-                elm.fillHealthBar()
-                elm.drawTopFramework()
-            })
-            this.players.forEach(elm => elm.drawPlayer(this.frameCount))
-            this.setEventListener()
-
+            this.drawAll()
+           
             if (this.hasDetectedCollision()) {
 
 
@@ -81,29 +73,7 @@ const ironhackFighters = {
     },
 
     setEventListener() {
-        //TODO
-        //Preguntar
-        // document.addEventListener('keydown', (event) => {
-        //     if (event.key === this.keys.moveLeft) {
-        //         this.players[0].movePlayer('left')
-        //         console.log('keydown left detected')
-
-        //     }
-        //     if (event.key === this.keys.moveRight) {
-        //         this.keydown = true
-        //         this.players[0].movePlayer('right')
-        //         console.log(`keydown right detected`)
-        //     }
-        //     if (event.key === this.keys.punch) {
-        //         console.log('punch')
-        //     }
-        //     if (event.key === this.keys.kick) {
-        //         console.log('kick')
-        //     }
-        // })
-        // document.addEventListener('keyup', (event) => {
-        //     event.key === this.keys.moveRight ? this.keydown = false : null
-        // })
+       
         document.onkeydown = e => {
             if (e.key === this.keys.moveRight) {
                 this.players[0].movePlayer('right')
@@ -155,7 +125,17 @@ const ironhackFighters = {
 
     },
 
-    drawBackground() {
+    drawAll() {
+        this.canvasBackground.drawCanvasBackground(this.frameCount)
+        this.lifeBars.forEach((elm, idx) => {
+            elm.drawBottomFramework()
+            elm.setHealthBarWidth(this.players[idx].getPlayerHealth())
+            elm.setHealthBarPos()
+            elm.fillHealthBar()
+            elm.drawTopFramework()
+        })
+        this.players.forEach(elm => elm.drawPlayer(this.frameCount))
+
 
     },
 
@@ -198,31 +178,6 @@ const ironhackFighters = {
         this.players[0].playerAttack(this.players[1], this.validAttack[0])
         this.players[1].playerAttack(this.players[0], this.validAttack[1])
     },
-
-
-    //AÑADIMOS ESTO EN PLAYER?
-    // player1Attack(obk) {
-    //     if (this.players[0].getStatus() != 'rest' && !this.validAttack[0]) {
-    //         this.players[1].receiveDamage(this.players[0].getStatus())
-    //         this.validAttack[0] = true
-    //         for (let i = 0; i < 3; i++) {
-    //             this.players[1].movePlayer('right')
-    //         }
-    //         setTimeout(() => this.validAttack[0] = false, 1000)
-    //     }
-    // },
-
-    // player2Attack() {
-    //     if (this.players[1].getStatus() != 'rest' && !this.validAttack[1]) {
-    //         console.log('te estoy atacando!')
-    //         this.players[0].receiveDamage(this.players[1].getStatus())
-    //         this.validAttack[1] = true
-    //         for (let i = 0; i < 3; i++) {
-    //             this.players[0].movePlayer('left')
-    //         }
-    //         setTimeout(() => this.validAttack[1] = false, 1000)
-    //     }
-    // },
 
     detectEndGame() {
 
