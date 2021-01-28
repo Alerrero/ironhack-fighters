@@ -84,8 +84,8 @@ class Player {
         }
     }
 
-    receiveDamage(attackType) {
-        if (this.status != 'jump'){
+    receiveDamage(attackType, validJump) {
+        if (this.status != 'jump' || validJump){
 
             attackType === 'kick' ? this.health -= 25 : this.health -= 15    
         }
@@ -95,11 +95,12 @@ class Player {
         return direction === 'right' ? this.playerPos.x + 10 + this.playerSize.w > this.canvasSize.w : this.playerPos.x - 5 <= 0
     }
 
-    playerAttack(playerObj, validAttack) { 
+    playerAttack(playerObj, validAttack, validJump) { 
         
-            if (!this.playerValidAttack&&this.status != 'rest' && this.status != 'move' && !validAttack) {
+            if (!this.playerValidAttack && !validAttack && (this.status === 'punch' || this.status === 'kick')) {
+                console.log(this.playerType, ' attacks ', playerObj)
 
-                playerObj.receiveDamage(this.status)
+                playerObj.receiveDamage(this.status, validJump)
                 this.playerValidAttack = true
 
                 this.status==='punch' ? this.audioPunch.play() : this.audioKick.play()
