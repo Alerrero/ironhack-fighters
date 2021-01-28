@@ -47,8 +47,6 @@ class Player {
         return this.status.charAt(0).toUpperCase()+this.status.slice(1)
     }
     
-//TODO
-//dar un nombre más claro a this.images
 
     createInstanceSrc(){
         return `animation/${this.playerType}${this.character}${this.transformStatusToCamelCase()}.png`
@@ -57,9 +55,6 @@ class Player {
     drawPlayer(frames) {
         
         this.imageInstance.src = this.createInstanceSrc()
-
-        //TODO: preguntar Teo
-        //const wantedObj = this.images.find(elm=>elm.name===this.status)
 
         this.imageInstance.frames = this.framesObject.find(elm=>elm.name===this.status).frames
 
