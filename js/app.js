@@ -9,7 +9,7 @@ const ironhackFighters = {
     canvasSize: { w: 900, h: 600 },
     lifeBars: [],
     players: [],
-    player1Character: 'Red',
+    player1Character: 'Ninja',
     canvasBackground: undefined,
     keys: {
         punch: 'a',
@@ -24,9 +24,8 @@ const ironhackFighters = {
     keydown: false,
     attackTime: 0,
     validAttack: [false, false],
-    validJump: [false, false],
     frameCount: 0,
-    characters: ['Wizard', 'Red', 'Warrior'],
+    characters: ['Wizard', 'Ninja', 'Warrior'],
 
     init(canvasID) {
         this.canvasDom = document.getElementById(`${canvasID}`)
@@ -65,53 +64,59 @@ const ironhackFighters = {
         this.canvasDom.height = this.canvasSize.h
     },
 
-    //#region aux functions
-	isValidKey(key) {
-		return Object.values(this.keys).includes(key)
-	},
-	getDOMKeyInterface(key) {
-		return this.documentKeys[Object.values(this.keys).indexOf(key)]
-	},
-	animateDOMButton(domElm) {
-		domElm.classList.add('pushed')
-	},
-	getAction(key) {
-		return `${Object.keys(this.keys)[Object.values(this.keys).indexOf(key)]}`
-	},
-	//#endregion aux functions
-
     setEventListener() {
        
         document.onkeydown = e => {
+            // if (e.key === this.keys.right) {
+            //     this.players[0].movePlayer('right')
+            //     this.players[0].setStatus('move')
+            //     this.documentKeys[3].classList.add('pushed')
+            // }
 
-            if (this.isValidKey(e.key)) {
-				this.animateDOMButton(this.getDOMKeyInterface(e.key))
-				switch (e.key) {
-					case this.keys.right:
-					case this.keys.left:
-						this.players[0].movePlayer(this.getAction(e.key))
-						this.players[0].setStatus('move')
-						break
-					default:
-						this.players[0].setStatus(this.getAction(e.key))
-				}
+            // if (e.key === this.keys.left) {
+            //     this.players[0].movePlayer('left')
+            //     this.players[0].setStatus('move')
+            //     this.documentKeys[2].classList.add('pushed')
+            // }
+
+            // if (e.key === this.keys.kick) {
+            //     this.players[0].setStatus('kick')
+            //     this.documentKeys[1].classList.add('pushed')
+            //     console.log({e})
+
+            // }
+            // if (e.key === this.keys.punch) {
+            //     this.players[0].setStatus('punch')
+            //     this.documentKeys[0].classList.add('pushed')
+            // }
+
+            if(Object.values(this.keys).includes(e.key)){
+                this.documentKeys[Object.values(this.keys).indexOf(e.key)].classList.add('pushed')
+                // console.log(Object.values(this.keys))
+                // console.log(Object.keys(this.keys))
+                // console.log(Object.keys(this.keys)[Object.values(this.keys).indexOf(e.key)])
+                // console.log(e.key)
+                
+                switch(e.key){
+                    case this.keys.right:
+                    case this.keys.left:
+                        this.players[0].movePlayer(`${Object.keys(this.keys)[Object.values(this.keys).indexOf(e.key)]}`)
+                        this.players[0].setStatus('move')
+                        break;
+                    default:
+                        this.players[0].setStatus(`${Object.keys(this.keys)[Object.values(this.keys).indexOf(e.key)]}`)
+                }
             }
-            
-            if (e.key === this.keys.jump) {
-                this.validJump[0] = true
-                setTimeout( () => {
-                    this.validJump[0] = false
-                }, 2000)
+        }
+        document.onkeyup = e => {
+            if (e.key === this.keys.kick || e.key === this.keys.punch) {
+                this.attackTime = 0
+                this.validAttack[0] = false
             }
-		}
-		document.onkeyup = e => {
-			if (e.key === this.keys.kick || e.key === this.keys.punch) {
-				this.attackTime = 0
-				this.validAttack[0] = false
-			}
-			this.players[0].setStatus('rest')
-			this.documentKeys.forEach(elm => elm.classList.remove('pushed'))
-		}
+            this.players[0].setStatus('rest')
+            this.documentKeys.forEach(elm => elm.classList.remove('pushed')
+            )
+        }
 
     },
 
@@ -154,7 +159,7 @@ const ironhackFighters = {
             if (this.players[0].getStatus() === 'kick' || this.players[0].getStatus() === 'punch') {
                 borderPlayer1 += 52
             }
-            if (this.players[1].getStatus() === 'kick' || this.players[1].getStatus() === 'punch') {
+            if (this.players[1].getStatus() != 'kick' || this.players[1].getStatus() === 'punch') {
                 borderPlayer2 -= 52
             }
         
@@ -173,8 +178,8 @@ const ironhackFighters = {
     },
 
     playersAttack() {
-        this.players[0].playerAttack(this.players[1], this.validAttack[0], this.validJump[1])
-        this.players[1].playerAttack(this.players[0], this.validAttack[1], this.validJump[0])
+        this.players[0].playerAttack(this.players[1], this.validAttack[0])
+        this.players[1].playerAttack(this.players[0], this.validAttack[1])
     },
 
     detectEndGame() {
@@ -226,9 +231,9 @@ window.onload = () => {
         document.querySelector('.character-selection').style.display = 'none'
         ironhackFighters.setPlayer1Character('Wizard')
     };
-    document.getElementById('Red').onclick = function() {
+    document.getElementById('Ninja').onclick = function() {
         document.querySelector('.character-selection').style.display = 'none'
-        ironhackFighters.setPlayer1Character('Red')
+        ironhackFighters.setPlayer1Character('Ninja')
     }
     document.getElementById('Warrior').onclick = function() {
         document.querySelector('.character-selection').style.display = 'none'

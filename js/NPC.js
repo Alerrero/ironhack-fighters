@@ -8,7 +8,7 @@ class NPC extends Player {
     }
 
     createPattern() {
-        this.attackActions.push('left', 'left', 'left', 'left', 'left', 'punch', 'right', 'punch', 'kick', 'left','left', 'kick','punch','punch', 'left', 'left', 'punch')
+        this.attackActions.push('left', 'left', 'left', 'jump', 'left', 'left', 'punch', 'right', 'punch', 'kick', 'left','left', 'kick','punch', 'jump','punch', 'left', 'left', 'jump', 'punch','kick')
     }
 
     attackPattern() {
