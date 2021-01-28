@@ -1,5 +1,19 @@
-# ironhack-fighters
-Proyecto 1er modulo ironhack
+# Table of contents
 
+* [Ironhack Fighters](#general-info)
+* [Technologies](#technologies)
 
-Esto viene bien para poner notas y avances que vayamos haciendo
+## Ironhack Fighters
+
+This is a Street Fighters inspired videogame with medieval aesthetic.
+
+This game is our Module 1 project for the Ironhack Web Developing Bootcamp.
+
+Just select your character, press Start and enjoy!
+
+## Technologies
+
+Project is created with:
+
+* JavaScript
+* Canvas
