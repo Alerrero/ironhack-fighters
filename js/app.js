@@ -12,10 +12,11 @@ const ironhackFighters = {
     player1Character: 'Red',
     canvasBackground: undefined,
     keys: {
-        moveLeft: 'ArrowLeft',
-        moveRight: 'ArrowRight',
         punch: 'a',
-        kick: 'd'
+        kick: 'd',
+        left: 'ArrowLeft',
+        right: 'ArrowRight',
+       
     },
     documentKeys: document.querySelectorAll('.left, .right, .punch, .kick'),
     intervalID: undefined,
@@ -65,27 +66,45 @@ const ironhackFighters = {
     setEventListener() {
        
         document.onkeydown = e => {
-            if (e.key === this.keys.moveRight) {
-                this.players[0].movePlayer('right')
-                this.players[0].setStatus('move')
-                this.documentKeys[3].classList.add('pushed')
-            }
+            // if (e.key === this.keys.right) {
+            //     this.players[0].movePlayer('right')
+            //     this.players[0].setStatus('move')
+            //     this.documentKeys[3].classList.add('pushed')
+            // }
 
-            if (e.key === this.keys.moveLeft) {
-                this.players[0].movePlayer('left')
-                this.players[0].setStatus('move')
-                this.documentKeys[2].classList.add('pushed')
-            }
+            // if (e.key === this.keys.left) {
+            //     this.players[0].movePlayer('left')
+            //     this.players[0].setStatus('move')
+            //     this.documentKeys[2].classList.add('pushed')
+            // }
 
-            if (e.key === this.keys.kick) {
-                this.players[0].setStatus('kick')
-                this.documentKeys[1].classList.add('pushed')
-                console.log({e})
+            // if (e.key === this.keys.kick) {
+            //     this.players[0].setStatus('kick')
+            //     this.documentKeys[1].classList.add('pushed')
+            //     console.log({e})
 
-            }
-            if (e.key === this.keys.punch) {
-                this.players[0].setStatus('punch')
-                this.documentKeys[0].classList.add('pushed')
+            // }
+            // if (e.key === this.keys.punch) {
+            //     this.players[0].setStatus('punch')
+            //     this.documentKeys[0].classList.add('pushed')
+            // }
+
+            if(Object.values(this.keys).includes(e.key)){
+                this.documentKeys[Object.values(this.keys).indexOf(e.key)].classList.add('pushed')
+                // console.log(Object.values(this.keys))
+                // console.log(Object.keys(this.keys))
+                // console.log(Object.keys(this.keys)[Object.values(this.keys).indexOf(e.key)])
+                // console.log(e.key)
+                
+                switch(e.key){
+                    case this.keys.right:
+                    case this.keys.left:
+                        this.players[0].movePlayer(`${Object.keys(this.keys)[Object.values(this.keys).indexOf(e.key)]}`)
+                        this.players[0].setStatus('move')
+                        break;
+                    default:
+                        this.players[0].setStatus(`${Object.keys(this.keys)[Object.values(this.keys).indexOf(e.key)]}`)
+                }
             }
         }
         document.onkeyup = e => {
@@ -110,8 +129,6 @@ const ironhackFighters = {
             elm.drawTopFramework()
         })
         this.players.forEach(elm => elm.drawPlayer(this.frameCount))
-
-
     },
 
     setPlayer1Character(character){
@@ -151,6 +168,7 @@ const ironhackFighters = {
         return borderPlayer1 >= borderPlayer2
         
     },
+
     manageCollision(){
         if ((this.players[0].getStatus() === 'rest' || this.players[0].getStatus() === 'move') && (this.players[1].getStatus() === 'rest' || this.players[1].getStatus() === 'move')) {
             this.players[0].movePlayer('left')

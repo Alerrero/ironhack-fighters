@@ -43,9 +43,17 @@ class Player {
         }
     }
 
+    transformStatusToCamelCase(){
+        return this.status.charAt(0).toUpperCase()+this.status.slice(1)
+    }
+    
+//TODO
+// sacar el string de src a una función
+//dar un nombre más claro a this.images
+
     drawPlayer(frames) {
         
-        this.imageInstance.src = `animation/${this.playerType}${this.character}${this.status.charAt(0).toUpperCase()+this.status.slice(1)}.png`
+        this.imageInstance.src = `animation/${this.playerType}${this.character}${this.transformStatusToCamelCase()}.png`
 
         //TODO: preguntar Teo
         //const wantedObj = this.images.find(elm=>elm.name===this.status)
