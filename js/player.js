@@ -1,7 +1,10 @@
 class Player {
+
     constructor(ctx, canvasSize, playerType, character) {
+
         this.ctx = ctx
         this.canvasSize = canvasSize
+
         this.playerType = playerType
         this.playerSize = { w: 200, h: 296 }
         this.playerPos = {
@@ -10,6 +13,7 @@ class Player {
         }
         this.health = 300
         this.status = 'rest'
+
         this.playerValidAttack = false
 
         this.framesObject = [
@@ -22,15 +26,56 @@ class Player {
 
         this.imageInstance = new Image ()
         this.imageInstance.framesIndex = 0
+
         this.characters = []
         this.character = character
 
         this.audioKick = document.querySelector("#audio-kick")
-        this.audioKick.volume = 0.7
+        this.audioKick.volume = 0.6
         this.audioPunch= document.querySelector("#audio-punch")
-        this.audioPunch.volume = 0.7
+        this.audioPunch.volume = 0.6
     }
 
+// Draw player
+
+transformStatusToCamelCase(){
+    return this.status.charAt(0).toUpperCase()+this.status.slice(1)
+}
+
+createInstanceSrc(){
+    return `animation/${this.playerType}${this.character}${this.transformStatusToCamelCase()}.png`
+}
+
+drawPlayer(frames) {
+        
+    this.imageInstance.src = this.createInstanceSrc()
+
+    this.imageInstance.frames = this.framesObject.find(elm=>elm.name===this.status).frames
+
+    this.ctx.drawImage(
+        this.imageInstance,
+        this.imageInstance.framesIndex * Math.floor(this.imageInstance.width / this.imageInstance.frames),
+        0,
+        Math.floor(this.imageInstance.width / this.imageInstance.frames),
+        this.imageInstance.height,
+        this.playerPos.x,
+        this.playerPos.y,
+        this.playerSize.w,
+        this.playerSize.h
+    )
+
+    this.animate(frames)
+
+}
+
+animate(frames) {
+    if (frames % 5 == 0) {
+        this.imageInstance.framesIndex++;
+    }
+    if (this.imageInstance.framesIndex > this.imageInstance.frames - 1) {
+        this.imageInstance.framesIndex = 0
+    }
+}
 
     movePlayer(direction) {
         if (!this.hasPlayerReachBorder(direction)) {
@@ -44,45 +89,9 @@ class Player {
         }
     }
 
-    transformStatusToCamelCase(){
-        return this.status.charAt(0).toUpperCase()+this.status.slice(1)
-    }
+   
+
     
-
-    createInstanceSrc(){
-        return `animation/${this.playerType}${this.character}${this.transformStatusToCamelCase()}.png`
-    }
-
-    drawPlayer(frames) {
-        
-        this.imageInstance.src = this.createInstanceSrc()
-
-        this.imageInstance.frames = this.framesObject.find(elm=>elm.name===this.status).frames
-
-        this.ctx.drawImage(
-            this.imageInstance,
-            this.imageInstance.framesIndex * Math.floor(this.imageInstance.width / this.imageInstance.frames),
-            0,
-            Math.floor(this.imageInstance.width / this.imageInstance.frames),
-            this.imageInstance.height,
-            this.playerPos.x,
-            this.playerPos.y,
-            this.playerSize.w,
-            this.playerSize.h
-        )
-
-        this.animate(frames)
-
-    }
-
-    animate(frames) {
-        if (frames % 5 == 0) {
-            this.imageInstance.framesIndex++;
-        }
-        if (this.imageInstance.framesIndex > this.imageInstance.frames - 1) {
-            this.imageInstance.framesIndex = 0
-        }
-    }
 
     receiveDamage(attackType, validJump) {
         if (this.status != 'jump' || validJump){
@@ -111,12 +120,11 @@ class Player {
         
     }
 
+
+    //Getters 
+
     getPlayerType() {
         return this.playerType
-    }
-
-    setPlayerType(value) {
-        this.playerType = value
     }
 
     getPosition() {
@@ -131,10 +139,7 @@ class Player {
         return this.status
     }
 
-    setStatus(newStatus) {
-        this.status = newStatus
-    }
-
+   
     getPlayerSize() {
         return this.playerSize
     }
@@ -144,8 +149,19 @@ class Player {
         return this.playerType === 'player1' ? this.playerSize.w + this.playerPos.x - 52 : this.playerPos.x + 52
     }
 
+
+    //Setters 
+
     setPlayerInitialPos() {
         this.playerType === 'player1' ? this.playerPos.x = 10 : this.playerPos.x = this.canvasSize.w - 100 - this.playerSize.w
+    }
+
+    setPlayerType(value) {
+        this.playerType = value
+    }
+
+    setStatus(newStatus) {
+        this.status = newStatus
     }
   
 }
