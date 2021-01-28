@@ -13,8 +13,8 @@ class LifeBar {
             y: 20
         }
         this.topFrameworkPosition = {
-            x: this.playerType === 'player1' ? 40 : this.canvasSize.w - 330 - 105,
-            y: -2
+            x: this.playerType === 'player1' ? 40 : this.canvasSize.w -437,
+            y: -4
         }
         this.imageInstance1 = new Image()
         this.imageInstance1.src = 'img/healthBar1.png'
