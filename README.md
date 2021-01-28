@@ -11,7 +11,7 @@ This game is our Module 1 project for the Ironhack Web Developing Bootcamp.
 
 Just select your character, press Start and enjoy!
 
-![Start-game-screen](img/start-picture.jpeg)
+<img src="img/start-picture.jpeg" width="400">
 
 ## Technologies
 
