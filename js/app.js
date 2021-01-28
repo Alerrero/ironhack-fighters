@@ -185,7 +185,7 @@ const ironhackFighters = {
     detectEndGame() {
 
         this.lifeBars.forEach((elm, idx) => {
-            if (this.players[idx].getPlayerHealth() <= 0) {
+            if (this.players[idx].getPlayerHealth() <= 200) {
                 elm.drawBottomFramework()
                 elm.drawTopFramework()
                 clearInterval(this.intervalID)
@@ -203,9 +203,6 @@ const ironhackFighters = {
         this.keydown = false
         this.attackTime = 0
         this.validAttack = [false, false]
-        this.init('canvas')
-
-
     },
 
     clearScreen() {
@@ -217,6 +214,7 @@ const ironhackFighters = {
 window.onload = () => {
     document.getElementById('start-button').onclick = function() {
         document.getElementById('start-button').disabled = true
+        document.querySelector('.character-selection').style.display = 'none'
         const audio = document.querySelector("#audio-fight");
         audio.play();
         audio.volume= 0.1;  
@@ -228,15 +226,12 @@ window.onload = () => {
         restartGame();
     };
     document.getElementById('Wizard').onclick = function() {
-        document.querySelector('.character-selection').style.display = 'none'
         ironhackFighters.setPlayer1Character('Wizard')
     };
     document.getElementById('Ninja').onclick = function() {
-        document.querySelector('.character-selection').style.display = 'none'
         ironhackFighters.setPlayer1Character('Ninja')
     }
     document.getElementById('Warrior').onclick = function() {
-        document.querySelector('.character-selection').style.display = 'none'
         ironhackFighters.setPlayer1Character('Warrior')
     }
 
@@ -248,11 +243,10 @@ function startGame() {
 }
 
 function restartGame() {
-    document.querySelector('.end-game').style.display = 'none'
-    document.getElementById('start-button').disabled = true
-
     ironhackFighters.restart()
-    ironhackFighters.render()
+    document.querySelector('.end-game').style.display = 'none'
+    document.getElementById('start-button').disabled = false
+    document.querySelector('.character-selection').style.display = 'flex'
 
 }
 
