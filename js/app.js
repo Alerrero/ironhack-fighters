@@ -15,10 +15,11 @@ const ironhackFighters = {
         punch: 'a',
         kick: 'd',
         left: 'ArrowLeft',
+        jump: 'ArrowUp',
         right: 'ArrowRight',
-       
+        
     },
-    documentKeys: document.querySelectorAll('.left, .right, .punch, .kick'),
+    documentKeys: document.querySelectorAll('.punch, .kick, .left, .jump, .right'),
     intervalID: undefined,
     keydown: false,
     attackTime: 0,
@@ -155,22 +156,19 @@ const ironhackFighters = {
         let borderPlayer1 = this.players[0].getRealBorder()
         let borderPlayer2 = this.players[1].getRealBorder()
 
-        if (!((this.players[0].getStatus() === 'rest' || this.players[0].getStatus() === 'move') && (this.players[1].getStatus() === 'rest' || this.players[1].getStatus() === 'move'))) {
-
-            if (this.players[0].getStatus() != 'rest' && this.players[0].getStatus() != 'move') {
+            if (this.players[0].getStatus() === 'kick' || this.players[0].getStatus() === 'punch') {
                 borderPlayer1 += 52
             }
-            if (this.players[1].getStatus() != 'rest' && this.players[1].getStatus() != 'move') {
+            if (this.players[1].getStatus() != 'kick' || this.players[1].getStatus() === 'punch') {
                 borderPlayer2 -= 52
             }
-        }
-
+        
         return borderPlayer1 >= borderPlayer2
         
     },
 
     manageCollision(){
-        if ((this.players[0].getStatus() === 'rest' || this.players[0].getStatus() === 'move') && (this.players[1].getStatus() === 'rest' || this.players[1].getStatus() === 'move')) {
+        if ((this.players[0].getStatus() != 'kick' && this.players[0].getStatus() != 'punch') && (this.players[1].getStatus() != 'kick' && this.players[1].getStatus() != 'punch')) {
             this.players[0].movePlayer('left')
             this.players[1].movePlayer('right')
         } else {
