@@ -85,7 +85,10 @@ class Player {
     }
 
     receiveDamage(attackType) {
-        attackType === 'kick' ? this.health -= 25 : this.health -= 15
+        if (this.status != 'jump'){
+
+            attackType === 'kick' ? this.health -= 25 : this.health -= 15    
+        }
     }
 
     hasPlayerReachBorder(direction) {
