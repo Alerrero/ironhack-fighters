@@ -12,7 +12,7 @@ class Player {
         this.status = 'rest'
         this.playerValidAttack = false
 
-        this.images = [
+        this.framesObject = [
             {name: 'move', frames:6},
             {name: 'punch', frames:5},
             {name: 'kick', frames:6},
@@ -48,17 +48,20 @@ class Player {
     }
     
 //TODO
-// sacar el string de src a una función
 //dar un nombre más claro a this.images
+
+    createInstanceSrc(){
+        return `animation/${this.playerType}${this.character}${this.transformStatusToCamelCase()}.png`
+    }
 
     drawPlayer(frames) {
         
-        this.imageInstance.src = `animation/${this.playerType}${this.character}${this.transformStatusToCamelCase()}.png`
+        this.imageInstance.src = this.createInstanceSrc()
 
         //TODO: preguntar Teo
         //const wantedObj = this.images.find(elm=>elm.name===this.status)
 
-        this.imageInstance.frames = this.images.find(elm=>elm.name===this.status).frames
+        this.imageInstance.frames = this.framesObject.find(elm=>elm.name===this.status).frames
 
         this.ctx.drawImage(
             this.imageInstance,
