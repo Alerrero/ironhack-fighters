@@ -246,7 +246,10 @@ function restartGame() {
     ironhackFighters.restart()
     document.querySelector('.end-game').style.display = 'none'
     document.getElementById('start-button').disabled = false
-    document.querySelector('.character-selection').style.display = 'flex'
+    document.querySelector('.character-selection').width = '900px'
+    document.querySelector('.character-selection').style.display = 'block'
+    // document.querySelector('.character-selection').style.justifyContent = 'space-evenly'
+
 
 }
 
