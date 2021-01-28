@@ -3,10 +3,10 @@ class Player {
         this.ctx = ctx
         this.canvasSize = canvasSize
         this.playerType = playerType
-        this.playerSize = { w: 200, h: 134 }
+        this.playerSize = { w: 200, h: 296 }
         this.playerPos = {
             x: this.playerType === 'player1' ? 80 : 500,
-            y: 350
+            y: 188
         }
         this.health = 300
         this.status = 'rest'
@@ -16,7 +16,8 @@ class Player {
             {name: 'move', frames:6},
             {name: 'punch', frames:5},
             {name: 'kick', frames:6},
-            {name: 'rest', frames:4}
+            {name: 'rest', frames:4},
+            {name: 'jump', frames:6}
         ]
 
         this.imageInstance = new Image ()
