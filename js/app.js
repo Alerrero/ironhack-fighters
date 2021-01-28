@@ -239,6 +239,7 @@ window.onload = () => {
 
         document.getElementById('start-button').disabled = true
         document.querySelector('.character-selection').style.display = 'none'
+        document.querySelector('.title').style.display = 'none'
 
         const audio = document.querySelector("#audio-fight");
         audio.play();
@@ -275,7 +276,6 @@ function startGame() {
 function restartGame() {
 
     ironhackFighters.restart()
-
     document.querySelector('.end-game').style.display = 'none'
     document.getElementById('start-button').disabled = false
     document.querySelector('.character-selection').width = '900px'
