@@ -57,8 +57,8 @@ class Player {
         });
     }
 
-    transformStatusToCamelCase() {
-        return this.status.charAt(0).toUpperCase() + this.status.slice(1);
+    transformStatusToCamelCase(status) {
+        return status.charAt(0).toUpperCase() + status.slice(1);
     }
 
     createInstanceSrc(playerType, character, status) {
