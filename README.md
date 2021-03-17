@@ -19,3 +19,11 @@ Project is created with:
 
 - JavaScript
 - Canvas
+
+## Authors
+
+This project was a collaboration between:
+
+- Alejandro Caballero <https://github.com/Atreyu777>
+- Alejandro Herrero <https://github.com/Alerrero>
+- Barbara Diaz <https://github.com/barbarad91>
